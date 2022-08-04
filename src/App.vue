@@ -9,8 +9,8 @@
       <li><router-link to="">Overview</router-link></li>
       <li><router-link to="">Report</router-link></li>
       <li><router-link to="">Contact</router-link></li>
-      <li><router-link to="/signup" class="login">Log in</router-link></li>
-      <li><router-link to="/login" class="signup">Sign Up</router-link></li>  
+      <li><router-link to="/login" class="login">Log in</router-link></li>
+      <li><router-link to="/signup" class="signup">Sign Up</router-link></li>  
       
     </ul>
      
