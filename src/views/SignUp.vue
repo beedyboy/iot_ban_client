@@ -41,7 +41,7 @@
         </div>
 
         <div class="create">
-          <button type="submit"> Create Account </button>
+          <button type="submit" :disabled="sending"> Create Account </button>
         </div>
       </form>
 
@@ -60,7 +60,6 @@
 </template>
 
 
-
 <script>
 export default {
   name: 'SignUp',
@@ -71,11 +70,13 @@ export default {
       email: "",
       password: "",
       userType: "",
+      sending: false,
     }
   },
   methods: {
     async register(e) {
       e.preventDefault()
+      this.sending = true
       if (this.email === "" || this.password === "") {
         alert("Please enter your email and password correctly")
       }
@@ -104,6 +105,7 @@ export default {
             this.email = ""
             this.password = ""
             this.userType = ""
+            this.sending = false
         } else {
           alert('Error registering user')
         }

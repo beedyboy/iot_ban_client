@@ -5,7 +5,7 @@
       <p>IotBan.</p>
     </div>
     <ul>
-      <li><router-link to="" class="home">Home</router-link></li>
+      <li><router-link to="/" class="home">Home</router-link></li>
       <li><router-link to="">Overview</router-link></li>
       <li><router-link to="">Report</router-link></li>
       <li><router-link to="">Contact</router-link></li>
