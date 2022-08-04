@@ -35,7 +35,6 @@ export default {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 800px;
-  
 }
 
 .container {

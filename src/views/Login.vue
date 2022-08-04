@@ -50,7 +50,7 @@
         </div>
 
         <div class="signup">
-          <h4> Sign up </h4>
+          <button>Sign In</button>
         </div>
       </form>
 
@@ -147,9 +147,7 @@ img {
   font-size: 25px;
   font-weight: 700;
  
-} 
-
-
+}  
 
 .login-container p {
   
@@ -160,10 +158,7 @@ img {
   width: 200px;
 
   line-height: 20px;
-  
 } 
-
-
 
 .email-control h5 {
   margin-top: 20px;
@@ -225,10 +220,13 @@ height:20px;
   color: white;
 }
 
-.signup h4 {
+.signup button  {
   text-align: center;
   font-size: 20px;
   font-weight: 200;
+  color:white;
+  margin-left: 40%;
+  background: #1424b3;
 }
 
 .footer h6 {
