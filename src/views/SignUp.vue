@@ -10,18 +10,18 @@
         <p>Already have an account ? <a href="#"> Log In </a></p>
 
 
-        <div class="firstname-control">
-          <h5>First Name</h5>
-          <input type="text" class="input" v-model="firstName" />
+        <div class="form-control">
+          <label>First Name</label>
+          <input type="text" class="input" v-model="firstName" name="firstName" />
         </div>
 
-        <div class="lastname-control">
-          <h5>Last Name</h5>
+        <div class="form-control">
+          <label>Last Name</label>
           <input type="text" class="input" v-model="lastName" />
         </div>
 
-        <div class="usertype-control">
-          <h5>User Type</h5>
+        <div class="form-control">
+          <label>User Type</label>
           <select v-model="userType">
             <option>Select Type</option>
             <option value="PATIENT">Patient</option>
@@ -29,19 +29,19 @@
           </select>
         </div>
 
-        <div class="email-control">
-          <h5>Email Address</h5>
-          <input type="text" class="input" v-model="email" />
+        <div class="form-control">
+          <label>Email Address</label>
+          <input type="email" class="input" v-model="email" />
         </div>
 
-        <div class="pass-control">
-          <h5>Password</h5>
+        <div class="form-control">
+          <label>Password</label>
           <input type="password" class="input" v-model="password" />
 
         </div>
 
         <div class="create">
-          <button type="submit"> Create Account </button>
+          <button type="submit" :disabled="sending"> Create Account </button>
         </div>
       </form>
 
@@ -56,13 +56,8 @@
         Get access to unlimited Doctors.
       </p>
     </div>
-
-
-
-
   </div>
 </template>
-
 
 
 <script>
@@ -70,16 +65,18 @@ export default {
   name: 'SignUp',
   data() {
     return {
-      firstName: String,
-      lastName: String,
-      email: String,
-      password: String,
-      userType: String,
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      userType: "",
+      sending: false,
     }
   },
   methods: {
     async register(e) {
       e.preventDefault()
+      this.sending = true
       if (this.email === "" || this.password === "") {
         alert("Please enter your email and password correctly")
       }
@@ -91,17 +88,30 @@ export default {
           password: this.password,
           userType: this.userType,
         }
-        const result = await fetch('https://ban-iot.herokuapp.com/api/register', {
+        const response = await fetch('https://ban-iot.herokuapp.com/api/register', {
           method: 'POST',
           headers: {
-              'Content-type': 'application/json',
+            'Content-type': 'application/json',
           },
           body: JSON.stringify(newUser)
-      })
-      result.status === 201 ? alert(result.json().message) : alert('Error registering user')
+        })
+        if (response.status === 201) {
+          const data = await response.json();
+          console.log({ data })
+          alert(data.message)
 
+          this.firstName = ""
+            this.lastName = ""
+            this.email = ""
+            this.password = ""
+            this.userType = ""
+            this.sending = false
+        } else {
+          alert('Error registering user')
+        }
+
+      }
     }
-  }
   }
 };
 </script>
@@ -118,11 +128,9 @@ export default {
 .container {
   width: 100%;
   max-width: 100%;
-  /* height: 100vh; */
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 7rem;
-  /* background-color: red; */
 
 }
 
@@ -203,59 +211,22 @@ img {
 
 }
 
-.firstname-control h5 {
+.form-control {
+  display: flex;
+  flex-direction: column;
+}
 
+.form-control label {
   margin-top: 20px;
   margin-left: 205px;
   font-size: 20px;
   font-weight: 200;
 }
 
-
-.lastname-control h5 {
-
-  margin-top: 20px;
-  margin-left: 205px;
-  font-size: 20px;
-  font-weight: 200;
-}
-
-
-.usertype-control h5 {
-
-  margin-top: 20px;
-  margin-left: 205px;
-  font-size: 20px;
-  font-weight: 200;
-}
-
-.usertype-control select {
-
-  margin-top: 20px;
-  margin-left: 5px;
-  font-size: 20px;
-  font-weight: 200;
-}
-
-
-.email-control h5 {
-
-  margin-top: 20px;
-  margin-left: 205px;
-  font-size: 20px;
-  font-weight: 200;
-}
-
-.pass-control h5 {
-
-  margin-top: 20px;
-  margin-left: 205px;
-  font-size: 20px;
-  font-weight: 200;
-}
-
-
-input[type="text"] {
+input[type="text"],
+input[type="password"],
+input[type="email"],
+select {
   width: 40%;
   padding: 12px 20px;
   margin-left: 205px;
@@ -265,35 +236,17 @@ input[type="text"] {
   line-height: 10px;
 }
 
-input[type="password"] {
-
-  width: 40%;
-  padding: 12px 20px;
-  margin-left: 205px;
-  margin-top: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #1424B3;
-  border-radius: 10px;
-  line-height: 10px;
-}
-
-.create {
+button {
   width: 45%;
   height: 50px;
-
   margin-left: 205px;
   margin-top: 30px;
   margin-bottom: 30px;
   background-color: #1424B3;
   border-radius: 10px;
-  /* color: white; */
-}
-
-.create h4 {
+  color: white;
   text-align: center;
-  padding-top: 15px;
   font-size: 20px;
   font-weight: 200;
-  color: white;
 }
 </style>

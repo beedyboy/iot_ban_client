@@ -1,27 +1,17 @@
-<!-- eslint-disable vue/multi-word-component-names -->
-<!-- eslint-disable vue/multi-word-component-names -->
-<!-- eslint-disable vue/multi-word-component-names -->
-<template>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
 
+<template> 
 
-
-
-
-  <div class="container">
-    <router-view />
+  <div class="container"> 
     <div class="image-container">
       <div class="logo">
 
-      <h3>Iot Ban.</h3>
+        <h3>Iot Ban.</h3>
 
-      <img :src=" ('./assets/cover.svg') " />
+        <img :src="require('../assets/login.png')" />
 
-    </div>
-    
-  
+      </div>
+
+
 
       <p>
         With OpenSSL, your health records <br />
@@ -31,30 +21,30 @@
 
 
     <div class="login-container">
-      
-    <h2 class="title">Welcome Back !</h2>
-      <form action="index.html">
+
+      <h2 class="title">Welcome Back !</h2>
+      <form @submit="login">
         <p>All in one place!</p>
 
-        <div class="email-control">
-          <h5>Email</h5>
-          <input type="text" class="input" />
+        <div class="form-control">
+          <label>Email Address</label>
+          <input type="email" class="input" v-model="email" />
         </div>
 
-        <div class="pass-control">
-          
-          <h5>Password</h5><a href="#">Forgot Password?</a>
-          
-          <input type="password" class="input" />
-         
-        </div>
+        <div class="form-control">
+          <label>Password</label>
+          <input type="password" class="input" v-model="password" />
 
-        <div class="signup">
-          <button>Sign In</button>
         </div>
+        <a href="#">Forgot Password?</a>
+        
+          <button type="submit"> Sign In </button>
+          
       </form>
 
-      <footer class="footer"> <h6>Don't have an account  ? <a href="#"> Sign Up </a></h6>  </footer>
+      <footer class="footer">
+        <h6>Don't have an account ? <a href="#"> Sign Up </a></h6>
+      </footer>
 
     </div>
   </div>
@@ -63,15 +53,60 @@
 <script>
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Login'
+  name: 'Login',
+  data() {
+    return {
+      email: "",
+      password: ""
+    }
+  },
+  methods: {
+    async login(e) {
+      e.preventDefault()
+      if (this.email === "" || this.password === "") {
+        alert("Please enter your email and password correctly")
+      }
+      else {
+        const newUser = {
+          email: this.email,
+          password: this.password,
+        }
+        const response = await fetch('https://ban-iot.herokuapp.com/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify(newUser)
+        })
+        const data = await response.json();
+        if (response.status === 200) {
+          console.log({ data })
+          alert(data.message)
+
+          this.email = ""
+          this.password = ""
+        } else {
+          alert(data.message)
+        }
+
+      }
+    }
+  }
 };
 </script>
 
-<style>
+<style scoped>
 * {
   margin: 0;
   padding: 0;
   overflow: hidden;
+}
+
+a {
+  margin-left: 55%;
+  /* margin-top: 2px; */
+  /* margin-bottom: 60px; */
+
 }
 
 h3 {
@@ -84,6 +119,7 @@ h3 {
   font-size: 30px;
   line-height: 55px;
 }
+
 .container {
   width: 100vw;
   height: 100vh;
@@ -99,11 +135,11 @@ h3 {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  
+
 }
 
 .image-container p {
-   width: 600px;
+  width: 600px;
   height: 70px;
   position: fixed;
   bottom: 0;
@@ -115,19 +151,20 @@ h3 {
   text-align: center;
   padding: 30px;
 }
+
 img {
   width: 600px;
   height: 550px;
 }
 
- .login-container {
+.login-container {
   background: #e8ecf5;
   margin-bottom: 20px;
-  position:relative;
+  position: relative;
   height: 100vh;
   width: 750px;
 
- }
+}
 
 /* form {
   width: 800px; 
@@ -142,15 +179,15 @@ img {
   padding: 20px;
   margin-left: 80px;
   margin-top: 50px;
-  
+
   color: black;
   font-size: 25px;
   font-weight: 700;
- 
-}  
+
+}
 
 .login-container p {
-  
+
   font-size: 15px;
   color: #1424b3;
   margin-left: 110px;
@@ -158,89 +195,57 @@ img {
   width: 200px;
 
   line-height: 20px;
-} 
+}
 
-.email-control h5 {
+.form-control {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-control label {
   margin-top: 20px;
-   margin-left: 110px;
-   font-size: 20px;
+  margin-left: 205px;
+  font-size: 20px;
   font-weight: 200;
 }
-.pass-control h5{
-   margin-top: 20px;
-   margin-left: 110px;
-   font-size: 20px;
-  font-weight: 200;
-  
-}
-a {
-margin-left: 55%;  
-/* margin-top: 2px; */
-/* margin-bottom: 60px; */
 
-}
-
-input[type="text"]{
-   width: 50%;
-  padding: 12px 20px;
-  margin-left: 110px;
-   margin-top: 20px;
-  border: 1px solid #1424B3;
-  border-radius: 10px;
-  line-height: 20px;
-}
-
-
-input[type="password"]
- {
-  
+input[type="email"],
+input[type="password"] {
   width: 50%;
   padding: 12px 20px;
   margin-left: 110px;
-   margin-top: 8px;
-   margin-bottom: 10px;
+  margin-top: 20px;
   border: 1px solid #1424B3;
   border-radius: 10px;
   line-height: 20px;
-} 
+}
 
-.signup {
-width: 50%;
-height:20px;
-  padding-bottom:20px;
-  padding-right: 10px;
-  padding-top: 20px;
-    
-  margin-left: 110px;
-   margin-top: 30px;
-   margin-bottom: 30px;
-  
+
+button {
+  width: 50%;
+  height: 50px;
+ margin-left: 110px;
+  margin-top: 30px;
+  margin-bottom: 30px;
   background-color: #1424B3;
   border-radius: 10px;
   color: white;
-}
-
-.signup button  {
   text-align: center;
   font-size: 20px;
   font-weight: 200;
-  color:white;
-  margin-left: 40%;
-  background: #1424b3;
 }
 
 .footer h6 {
   margin-top: 150px;
   margin-left: 63%;
- margin-bottom:9px;
- width: 250px;
- height:auto;
- line-height: 9px;
- text-align: left;
+  margin-bottom: 9px;
+  width: 250px;
+  height: auto;
+  line-height: 9px;
+  text-align: left;
 }
 
 .footer a {
-  color:#1424B3;
+  color: #1424B3;
 }
-
 </style>
