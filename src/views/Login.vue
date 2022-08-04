@@ -147,9 +147,7 @@ img {
   font-size: 25px;
   font-weight: 700;
  
-} 
-
-
+}  
 
 .login-container p {
   
@@ -160,10 +158,7 @@ img {
   width: 200px;
 
   line-height: 20px;
-  
 } 
-
-
 
 .email-control h5 {
   margin-top: 20px;
