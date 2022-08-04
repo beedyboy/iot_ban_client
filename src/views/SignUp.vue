@@ -91,7 +91,7 @@ export default {
           password: this.password,
           userType: this.userType,
         }
-        const result = await fetch('https://ban-iot.herokuapp.com/api', {
+        const result = await fetch('https://ban-iot.herokuapp.com/api/register', {
           method: 'POST',
           headers: {
               'Content-type': 'application/json',
