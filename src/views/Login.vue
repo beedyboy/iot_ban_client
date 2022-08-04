@@ -50,7 +50,7 @@
         </div>
 
         <div class="signup">
-          <h4> Sign up </h4>
+          <button>Sign In</button>
         </div>
       </form>
 
@@ -225,10 +225,13 @@ height:20px;
   color: white;
 }
 
-.signup h4 {
+.signup button  {
   text-align: center;
   font-size: 20px;
   font-weight: 200;
+  color:white;
+  margin-left: 40%;
+  background: #1424b3;
 }
 
 .footer h6 {
