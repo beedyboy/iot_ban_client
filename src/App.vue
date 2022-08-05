@@ -120,6 +120,7 @@ nav ul li .signup {
   display:grid;
   line-height: 44px;
   
+  
 }
 
 .blue-btn {
@@ -129,6 +130,7 @@ nav ul li .signup {
   margin-top: 150px;
   border-radius: 20px;
   padding: 10px 30px;
+  
 
 }
 

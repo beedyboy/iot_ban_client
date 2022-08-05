@@ -8,6 +8,9 @@
       Risus purus tristique at elementum. <br>
       Nibh purus eu tellus placerat imperdiet.</p>
 
+
+      <img :src="require( '../assets/header.svg')" />
+
 <div class="blue-btn">
   <a class="first-link" href=""> Get Started </a>
  </div>
@@ -26,42 +29,63 @@ export default {
 </script>
 
 <style scoped>
+* {
+  margin: 0;
+  padding: 0;
+  /* overflow: hidden; */
+}
 
  
 .header {
-  height: 100%;
-  /* background-image: url('assets/header.svg'); */
-  background-position: right bottom;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 800px;
+  height: 100vh;
+  width: 100%;
+  background: #e8ecf5;
+  /* margin-bottom: 50%; */
+  /* margin-bottom:50%; */
+   /* border: 5px solid yellow ; */
+  
+}
+
+img {
+  width: 150%;
+  height: 110%;
+  margin-left: 150%;
+  /* /* margin-bottom: 50%; */
+   align-content: center; 
+   /* border: 5px solid red ; */
+  padding-bottom:20px;
+  
+  
+
+
 }
 
 .container {
-  width: 500px;
-  height: 500px;
-  top: 200px;
-  left: 100px;
-  position: fixed;
- text-align: left;
- 
+  width: 30%;
+  height: 50%;
+  /* top: 200px; */
+  /* left: 100px; */
+  margin-left: 5%;
+  margin-top: 7%;
+ /* text-align: left; */
+   /* border: 5px solid green ; */
  
 }
 
 h1 {
   font-size: 50px;
   font-weight: 600;
-  line-height: 70px;
+  
 }
 
 h5 {
   font-weight: 200;
-  font-size: 15px;
+  font-size: 20px;
   color:#1424B3;
 }
 
 p {
-  font-size: 15px;
+  font-size: 17px;
 }
 
 </style>
