@@ -78,8 +78,8 @@
 
 <script>
 export default {
- // eslint-disable-next-line vue/multi-word-component-names
- name: 'Records'
+//  eslint-disable-next-line vue/multi-word-component-names
+ name: 'Records',
 }
 </script>
 

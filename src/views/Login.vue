@@ -57,7 +57,7 @@ export default {
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
     }
   },
   methods: {
@@ -82,9 +82,10 @@ export default {
         if (response.status === 200) {
           console.log({ data })
           alert(data.message)
-
           this.email = ""
           this.password = ""
+          
+           this.$router.push( newUser.UserType == 'PATIENT' ? '/records' : '/' );
         } else {
           alert(data.message)
         }
