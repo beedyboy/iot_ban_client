@@ -4,7 +4,8 @@
     <div class="logo">
       <p>IotBan.</p>
     </div>
-    <ul>
+    <ul v-if="showNavigation">
+
       <li><router-link to="/" class="home">Home</router-link></li>
       <li><router-link to="">Overview</router-link></li>
       <li><router-link to="">Report</router-link></li>
@@ -14,8 +15,11 @@
       
     </ul>
      
+  <Navbar v-if="!showNavigation" />
 
   </nav> 
+
+  
   <main>
     <router-view></router-view>
 
@@ -26,10 +30,20 @@
 </template>
 
 <script>
-
+import Navbar from './components/Navbar'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    Navbar
+  },
+  data () {
+    return {
+      showNavigation: this.$route.path === '/' ? true : false
+
+    }
+  }
 }
+
 </script>
 
 <style scoped>

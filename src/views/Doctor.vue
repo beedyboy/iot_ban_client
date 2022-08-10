@@ -1,26 +1,26 @@
 <!-- eslint-disable vue/valid-template-root -->
 
 <template>
-  <h1>Hello OMJ </h1>
+  
+
+<Card/>
+<Card/>
+<Card/>
+
 </template>
 
 
-
-
-
-
-
-
-
-
 <script>
-export default {
 
+import Card from '../components/Card'
+
+export default {
+  name: 'Doctor',
+   components: {
+    Card
+  },
 }
 </script>
-
-
-
 
 
 
