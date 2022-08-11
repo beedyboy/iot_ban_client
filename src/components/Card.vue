@@ -1,28 +1,17 @@
 
 <template>
-  
-<div class="main-container">
 
-   <div class="card-container">
-
-      <div class="image">
+   <div class="card">
         <img src="../assets/avatar-1.svg">
-      </div>
-      <div class="title">
-        <h1> Pamela Rose | 45 </h1>
-        <p> </p>
-      </div>
-        <div class="des">
+      
+      
+        <h1>  {{name}} | {{age}} </h1>
+        
       <p> Add Description Here...</p>
         <button>Attend To !</button>
-      </div>
-
+   
    </div>
-
-</div>
-
-
-
+      
 </template>
 
 
@@ -30,64 +19,49 @@
 
 export default {
   name: 'Card',
+  props : ['name', 'age'],
 }
 
 </script>
 
-<style>
-
+<style scoped>
+/* 
 *{
  margin: 0px;
  padding: 0px;
  box-sizing: border-box;
-}
-.main-container{
-  display : grid;
-  grid-template-columns: repeat(3, 1fr);
-  /* grid-auto-rows: auto;
-  grid-gap: 1rem; */
- 
-}
-
-.card-container{
-     width: 65%;
-     
-     box-shadow: 2px 2px 20px black;
-     border-radius: 15px; 
-     margin: 55px;
-     background-color:#E8ECF5;
- 
-  
- 
+} */ 
+.card{
+   display : flex;
+   flex-direction: column;
+   justify-content: space-between;
+   align-items: center;  
+    box-shadow: 2px 2px 10px black;
+    border-radius: 15px;  
+    background-color:#E8ECF5;
+    height: 250px;
     }
 
-.image img{
-  width: 80%;
+ img{
+  width: 70px;
+  height: 50px;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
-  margin-left:35px;
-  display:block;
- 
+  margin-top : 10px;
  }
 
-.title{
- 
+
+h1 {
+  font-size: 20px;
   text-align: center;
   padding: 10px;
-  /* border: 4px solid yellow; */
-  
  }
 
-h1{
-  font-size: 20px;
- }
-
-.des{
+p {
   padding: 3px;
   text-align: center;
- 
   padding-top: 10px;
-        border-bottom-right-radius: 5px;
+ border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
 }
 button{
