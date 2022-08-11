@@ -61,7 +61,15 @@ export default {
   methods: {
     toggleForm(e) {
       e.preventDefault();
-      this.open = !this.open
+      this.open = !this.open;
+    },
+    async fetchRecords() {
+      await fetch("https://ban-iot.herokuapp.com/api/health", {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
     },
   },
   components: {
@@ -92,9 +100,8 @@ export default {
   font-size: 30px;
   /* line-height: 5px; */
 }
-h5{
-  margin-left : 10%;
- 
+h5 {
+  margin-left: 10%;
 }
 
 hr {
@@ -124,12 +131,12 @@ td {
 
 button {
   border-radius: 10px;
-    background-color: #1424B3;
-    color: white;
-    width: 10%;
-   height: 35px;
-   font-size:17px;
+  background-color: #1424b3;
+  color: white;
+  width: 10%;
+  height: 35px;
+  font-size: 17px;
   margin-top: 15px;
-   margin-right: 30%;
+  margin-right: 30%;
 }
 </style>
