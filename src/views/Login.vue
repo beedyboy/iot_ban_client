@@ -38,7 +38,7 @@
         </div>
         <a href="#">Forgot Password?</a>
         
-          <button type="submit"> Sign In </button>
+          <button type="submit">{{ sending ? 'processing...' : 'Sign In '}}</button>
           
       </form>
 
@@ -57,7 +57,8 @@ export default {
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      sending: false
     }
   },
   methods: {
@@ -67,6 +68,7 @@ export default {
         alert("Please enter your email and password correctly")
       }
       else {
+        this.sending = true
         const newUser = {
           email: this.email,
           password: this.password,
@@ -82,13 +84,17 @@ export default {
         if (response.status === 200) {
           console.log({ data })
           alert(data.message)
-
           this.email = ""
           this.password = ""
+          const User = data.user
+          localStorage.setItem ("auth", data.token)
+           this.$router.push( User.userType === 'PATIENT' ? '/records' : '/' );
         } else {
           alert(data.message)
-        }
 
+        }
+          this.sending = false
+          
       }
     }
   }

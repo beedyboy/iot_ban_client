@@ -94,6 +94,8 @@ export default {
             'Content-type': 'application/json',
           },
           body: JSON.stringify(newUser)
+
+          
         })
         if (response.status === 201) {
           const data = await response.json();
