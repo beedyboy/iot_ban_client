@@ -28,7 +28,7 @@ export default {
 
 
 
-<style>
+<style scoped>
 * {
   margin: 0;
   padding: 0;
@@ -42,7 +42,7 @@ export default {
 }
 
 nav {
-  width: 90%;
+  width: 100%;
   height: 65px;
   line-height: 65px;
   padding: 0px 100px;

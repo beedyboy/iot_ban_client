@@ -87,6 +87,7 @@ export default {
           this.email = ""
           this.password = ""
           const User = data.user
+          localStorage.setItem ("auth", data.token)
            this.$router.push( User.userType === 'PATIENT' ? '/records' : '/' );
         } else {
           alert(data.message)

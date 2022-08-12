@@ -1,9 +1,9 @@
 <template>
-  <nav>
+  <nav v-show="showNavigation">
     <div class="logo">
-      <p>IotBan.</p>
+      <p>IotBan. {{showNavigation}}</p>
     </div>
-    <ul v-if="showNavigation">
+    <ul>
       <li><router-link to="/" class="home">Home</router-link></li>
       <li><router-link to="">Overview</router-link></li>
       <li><router-link to="">Report</router-link></li>
@@ -12,8 +12,8 @@
       <li><router-link to="/signup" class="signup">Sign Up</router-link></li>
     </ul>
 
-    <Navbar v-if="!showNavigation" />
   </nav>
+    <Navbar v-if="!showNavigation" />
 
   <main>
     <router-view></router-view>
@@ -29,9 +29,12 @@ export default {
   },
   data() {
     return {
-      showNavigation: this.$route.path === "/" ? true : false,
+      showNavigation: this.$route.path === "/" ? true : false
     };
   },
+  created(){
+   return this.showNavigation = this.$route.path === "/" ? true : false
+  }
 };
 </script>
 
