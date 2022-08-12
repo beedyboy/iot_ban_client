@@ -90,6 +90,25 @@ export default {
         } 
         else {
           this.sending =true
+          const payload = {
+          blood_pressure : this.blood_pressure,
+          heart_rate : this.heart_rate,
+          temperature : this.temperature,
+          glucose_level : this.glucose_level,
+          pulse_rate : this.pulse_rate,
+            }
+            const response = await fetch('https://ban-iot.herokuapp.com/api/health/create', {
+             method: 'POST',
+             headers: {
+               'Content-type': 'application/json',
+             },
+             body: JSON.stringify(payload)
+           })
+        const data = await response.json();
+        if (response.status === 200) {
+          console.log({ data })
+          alert(data.message)
+          }
         }
       }
     }
