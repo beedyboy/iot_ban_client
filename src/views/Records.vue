@@ -62,15 +62,9 @@ export default {
     toggleForm(e) {
       e.preventDefault();
       this.open = !this.open;
+    
     },
-    async fetchRecords() {
-      await fetch("https://ban-iot.herokuapp.com/api/health", {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-        },
-      });
-    },
+    
   },
   components: {
     Modal,
