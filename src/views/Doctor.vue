@@ -46,6 +46,34 @@ export default {
   components: {
     Card,
   },
+  methods : {
+    async fetchRecords() {
+    const res = await fetch("https://ban-iot.herokuapp.com/api/health", );
+
+      this.patients = await this.fetchPatients()
+    const data = await res.json()
+    return data      // {"GET"}
+    },
+    created () {
+      this.patients = [
+        {
+            id : 1, 
+            name : 'Bola',
+            age : 20,
+          },
+          {
+            id : 2, 
+            name : 'Omj',
+            age : 25,
+          },
+          {
+            id : 3, 
+            name : 'Tomi',
+            age : 30,
+          },
+      ]
+    }
+  }
 };
 </script>
 
