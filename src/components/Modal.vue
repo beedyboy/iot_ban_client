@@ -59,9 +59,18 @@ export default {
 }
 
 .modal-head button {
-  color: red;
+  /* display: flex;
+  flex-direction: row;
+   align-content: center;
+  /* justify-content: space-between; */
+  text-align: center;
+  color:  red;
   background: white;
-  float : right;
+  /* float : right; */
+  margin-left: 100px;
+  width: 5%;
+  height: 50px;
+
 }
 
 .modal-content,.modal-head {

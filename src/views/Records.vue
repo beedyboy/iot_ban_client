@@ -83,6 +83,7 @@ export default {
 .container {
   width: 96.5%;
   height: 100vh;
+   /* overflow: auto; */
 }
 
 .med-bar {

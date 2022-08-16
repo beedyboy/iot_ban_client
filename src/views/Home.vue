@@ -67,6 +67,7 @@ img {
   /* left: 100px; */
   margin-left: 5%;
   margin-top: 7%;
+ 
  /* text-align: left; */
    /* border: 5px solid green ; */
  

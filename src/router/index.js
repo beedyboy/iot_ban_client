@@ -33,7 +33,7 @@ const routes = [
     name:  "Doctor",
     component: Doctor,
   },
-  
+
 
 ]
 
