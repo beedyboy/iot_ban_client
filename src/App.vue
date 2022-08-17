@@ -18,6 +18,14 @@
   <main>
     <router-view></router-view>
   </main>
+
+
+
+
+
+
+
+
 </template>
 
 <script>
@@ -61,8 +69,6 @@ nav {
   justify-content: space-between;
   line-height: 75px;
   padding: 0px 100px;
-  /*position:fixed;
-  z-index:1; */
   background-color: #e8ecf5;
 }
 

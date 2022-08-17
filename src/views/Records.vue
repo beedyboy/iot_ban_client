@@ -44,7 +44,7 @@
       </table>
     </div>
   </div>
-  <Modal :show="open" title="Add a Record">
+  <Modal :show="open" title="Add a Record" @close-modal="open=false">
     <PatientForm />
   </Modal>
 </template>
@@ -62,15 +62,9 @@ export default {
     toggleForm(e) {
       e.preventDefault();
       this.open = !this.open;
+    
     },
-    async fetchRecords() {
-      await fetch("https://ban-iot.herokuapp.com/api/health", {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-        },
-      });
-    },
+    
   },
   components: {
     Modal,
@@ -89,6 +83,7 @@ export default {
 .container {
   width: 96.5%;
   height: 100vh;
+   /* overflow: auto; */
 }
 
 .med-bar {

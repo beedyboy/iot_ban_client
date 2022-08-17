@@ -2,21 +2,22 @@
 
 <template>
   <div class="main-container">
-    <h1>Patients' Alert</h1>
+    <!-- <h1>Patients' Alert</h1> -->
     <div class="card-container" >
       <div v-for="pat in patients" :key="pat.id">
 
         <Card  :name = 'pat.name'  :age = 'pat.age' />
-
+        <Card  :name = 'pat.name'  :age = 'pat.age' />
       </div>
     </div>
-    <div>
-      <h3>Pagination</h3>
-    </div>
   </div>
+  
+      <Pagination/>
 </template>
 
 <script>
+
+import Pagination from "../components/Pagination";
 import Card from "../components/Card";
 
 export default {
@@ -45,26 +46,43 @@ export default {
   name: "Doctor",
   components: {
     Card,
+    Pagination,
   },
+  methods : {
+    async fetchRecords() {
+    const res = await fetch("https://ban-iot.herokuapp.com/api/health", );
+
+    this.patients = await res.json()
+
+         
+    },
+  },
+   async created () {
+    this.fetchRecords()
+  }
 };
 </script>
 
 <style scoped>
 .main-container {
-  /* margin-top: 85px; */
-  display: flex !important;
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding-left: 15px;
   padding-right: 15px;
   width: 100%;
-  height: 100%;
+  /* margin-bottom: 90%; */
+  /* height: 100%; */
 }
 
 .card-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  width: 100%;
-  gap: 20px;
-}
+  width: 70%;
+  height: 300px;
+  /* gap: 20px; */
+  justify-content: space-between;
+} 
+
+
 </style>

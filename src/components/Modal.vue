@@ -1,71 +1,110 @@
 <template>
   <div class="modal" v-if="show">
-    
-    <div class="modal-head">
-      <h1> {{title}} </h1>
-      <button> X </button>
+      <div class="modal-container">  
 
+        <div class="modal-header">
+          <h1>{{ title }}</h1> 
+        
+      <span @click="$emit('close-modal')"  type="submit" class="close"> &times;</span>
     </div>
-      <div class="modal-content">
-  <slot />
-  </div>
+    <div class="modal-content">
+      <slot />
+    </div>
+      </div>
   </div>
 </template>
 
 <script>
 export default {
-    name: 'Modal',
-    props: {
-      show : Boolean,
-      title: String
-    }
-}
+  name: "Modal",
+  props: {
+    show: Boolean,
+    title: String,
+  },
+  
+  methods : {
+    // handleClose () {
+    //   this.$emit('close')
+
+    // }
+  }
+};
 </script>
 
 <style scoped>
-
 .modal {
-  display:block;
-  position:fixed;
-    height: 100%;
-    top:0;
-    background-color: rgb(0, 0, 0,0.5);
-    width: 100%;
-    max-width: 100%;
-    z-index: 10;
-    overflow: scroll;
-    overflow-x: hidden;
+  /* display: block; */
+  position: fixed; 
+  padding-top:10px;
+  z-index: 1;
+  inset: 0;
+  
+  background-color: rgb(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  /* max-width: 100%; */
+  overflow: auto;
+  }
+
+.modal-container {
+  /* position: relative; */
+  margin:auto;
+  display:flex;
+  flex-direction: column;
+  margin-top: 20%;
+  margin-left: 15%;
+  width: 70%;
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
 }
 
 .modal-content {
-    min-height: 300px;
-   
-    background-color: rgb(255, 255, 255);
-    height: auto;
-    width: 70%;
-    /* border: 5px solid red; */
- 
+  /* min-height: 300px; */
+  /* border: 5px solid red; */
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  /* height: auto; */
 }
 
-.modal-head {
+.modal-header {
   display:flex;
-  width: 71.2%;
-  border: 0;
-  border-top-right-radius: 10px;
-  justify-content: space-between;
-   margin-top: 25% ;
-    background-color: rgb(255, 255, 255);
-  padding: 5px;
+  /* justify-content: space-between; */
+  padding: 2px 16px;
+  background-color: rgb(255, 255, 255);
+  padding: 2px 16px;
 }
 
-.modal-head button {
+h1 {
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.close {
   color: red;
-  background: white;
-  float : right;
+  float: right;
+  font-size: 60px;
+  font-weight:bolder;
+  margin-left: 80%;
 }
 
-.modal-content,.modal-head {
-  margin-left: 15%;
-  /* margin-right: auto; */
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
+ 
 </style>
