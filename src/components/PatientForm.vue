@@ -60,7 +60,9 @@
         />
     </div>
 
-    <input type="submit" :value="sending ? 'saving..' : 'Save Form '" class="btn"/>
+   <div class="sub-btn">
+     <button type="submit">{{ sending ? 'saving..' : 'Save Form ' }}</button>
+   </div>
   </form>
   
     </div>
@@ -127,28 +129,18 @@ export default {
 
 }
 
-/* .container {
-  background: #e8ecf5;
-  height: 100%;
-  width: 100%;
-
-} */
-
-
 .form-container {
     margin-top: 1px;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
     padding: 10px;
      background: #e8ecf5;
-    width: 100%;
+    width: 98.5%;
+    /* border: 5px solid red; */
 }
 .form-page {
-    /* display:flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center; */
     width: 70%;
     margin: 15px auto;
+    /* overflow-y: scroll; */
 }
 
 .form-control {
@@ -178,12 +170,18 @@ export default {
 
 }
 
-.btn {
-    margin-left: 60px;
-    border-radius: 10px;
-    background-color: #1424B3;
+.sub-btn {
+  display: flex;
+  justify-content: flex-end; 
+    width: 100%;
+    margin: 25px 0 25px;
+}
+.sub-btn > button  {
+    background-color: #1424B3; 
     color: white;
-    width: 50%;
+    width: auto;
+    padding: 10px;
+    border-radius: 10px;
    height: 40px;
    font-size:17px;
 

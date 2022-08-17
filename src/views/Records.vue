@@ -44,7 +44,7 @@
       </table>
     </div>
   </div>
-  <Modal :show="open" title="Add a Record">
+  <Modal :show="open" title="Add a Record" @close-modal="open=false">
     <PatientForm />
   </Modal>
 </template>

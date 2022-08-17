@@ -11,7 +11,6 @@
       <p> Add Description Here...</p>
       </div>
         <button>Attend To !</button>
-
     </div>
       
 </template>
@@ -34,7 +33,7 @@ export default {
 }  */
 .card-container{
      margin: 18px 10px 40px;
-    margin-left: 200px;
+    margin-left: 180px;
     box-shadow: 2px 2px 10px black;
     border-radius: 15px;  
     background-color:#E8ECF5;

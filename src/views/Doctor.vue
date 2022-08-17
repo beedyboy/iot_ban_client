@@ -2,7 +2,7 @@
 
 <template>
   <div class="main-container">
-    <h1>Patients' Alert</h1>
+    <!-- <h1>Patients' Alert</h1> -->
     <div class="card-container" >
       <div v-for="pat in patients" :key="pat.id">
 
@@ -11,10 +11,13 @@
       </div>
     </div>
   </div>
+  
+      <Pagination/>
 </template>
 
 <script>
 
+import Pagination from "../components/Pagination";
 import Card from "../components/Card";
 
 export default {
@@ -43,33 +46,34 @@ export default {
   name: "Doctor",
   components: {
     Card,
+    Pagination,
   },
   methods : {
     async fetchRecords() {
     const res = await fetch("https://ban-iot.herokuapp.com/api/health", );
 
-    const data = await res.json()
+    this.patients = await res.json()
 
-    return data      
+         
     },
   },
    async created () {
-    this.patients = await this.fetchRecords()
+    this.fetchRecords()
   }
 };
 </script>
 
 <style scoped>
-/* .main-container {
-  
+.main-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding-left: 15px;
   padding-right: 15px;
   width: 100%;
-  height: 100%;
-} */
+  /* margin-bottom: 90%; */
+  /* height: 100%; */
+}
 
 .card-container {
   display: grid;
