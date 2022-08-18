@@ -11,16 +11,17 @@
       <p> Add Description Here...</p>
       </div>
         <button>Attend To !</button>
+     
     </div>
-      
 </template>
 
 
 <script>
 
+
 export default {
   name: 'Card',
-  props : ['name','age'],
+
 }
 
 </script>

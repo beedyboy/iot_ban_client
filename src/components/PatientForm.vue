@@ -131,11 +131,11 @@ export default {
 
 .form-container {
     margin-top: 1px;
-    /* margin-bottom: 10px; */
+  
     padding: 10px;
      background: #e8ecf5;
     width: 98.5%;
-    /* border: 5px solid red; */
+ 
 }
 .form-page {
     width: 70%;
