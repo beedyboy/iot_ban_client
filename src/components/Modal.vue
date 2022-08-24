@@ -6,6 +6,7 @@
           <h1>{{ title }}</h1> 
         
       <span @click="$emit('close-modal')"  type="submit" class="close"> &times;</span>
+    <!-- <OtpForm @toggle-otp-form="$emit('toggle-otp-form')" /> -->
     </div>
     <div class="modal-content">
       <slot />
@@ -15,6 +16,10 @@
 </template>
 
 <script>
+
+// import OtpForm from "@/components/OtpForm.vue";
+
+
 export default {
   name: "Modal",
   props: {
@@ -22,12 +27,10 @@ export default {
     title: String,
   },
   
-  methods : {
-    // handleClose () {
-    //   this.$emit('close')
+//   components: {
+//     OtpForm,
+// },
 
-    // }
-  }
 };
 </script>
 

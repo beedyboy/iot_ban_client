@@ -6,21 +6,42 @@
         <img src="../assets/avatar-1.svg">
       </div>
       <div class="text">
-        <h1>{{name}}|{{age}}</h1>
-
+        <h1>{{name}} | {{age}}</h1>
+        <!-- <h5> {{message}}</h5> -->
       <p> Add Description Here...</p>
       </div>
-        <button>Attend To !</button>
-     
-    </div>
-</template>
+        <button @click="handleOtp(message)"> Attend To!</button>
 
+    </div>
+
+    
+ 
+</template>
+ 
 
 <script>
 
 
+
+
+
+ 
 export default {
   name: 'Card',
+  
+  
+ 
+  methods: {
+    handleOtp(message) {
+      this.$emit('toggle-otp-form', message)
+    }
+  },
+  props : {
+    name: String,
+    age: String,
+    message: String,
+  }
+  
 
 }
 

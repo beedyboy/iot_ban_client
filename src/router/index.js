@@ -5,7 +5,7 @@ import Login from  '../views/Login'
 import Home from '../views/Home'
 import Records from '../views/Records'
 import Doctor from '../views/Doctor'
-import OTPModal from '../views/OTPModal'
+
 
 
 const routes = [
@@ -34,12 +34,7 @@ const routes = [
     name:  "Doctor",
     component: Doctor,
   },
-  {
-    path: '/otpmodal',
-    name:  "OTPModal",
-    component: OTPModal,
-  },
-
+ 
 ]
 
 
