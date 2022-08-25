@@ -9,14 +9,14 @@
           :name="pat.name"
           :age="pat.age"
           @toggle-otp-form="toggleOtpForm"
-          :message="pat.message"
+          
         />
       </div>
     </div>
   </div>
   <button @toggle-otp-form="$emit('toggle-otp-form')" />
-  <div v-show="showOtpForm" >
-    <OtpForm @otp-form="otpform" />
+  <div v-show="showOtpForm" v-for="pat in patients" :key="pat.id">
+    <OtpForm @otp-form="OtpForm"  :title="pat.title" />
   </div>
   <Pagination />
 </template>
@@ -35,19 +35,19 @@ export default {
           id: 1,
           name: "Bola",
           age: 20,
-          message: "Get access to Bola",
+          title: "Get access to Bola",
         },
         {
           id: 2,
           name: "Omj",
           age: 25,
-          message: " Enter your token Omj",
+          title: " Enter your token Omj",
         },
         {
           id: 3,
           name: "Tomi",
           age: 30,
-          message: "Enter your token Tomi",
+          title: "Enter your token Tomi",
         },
       ],
     };
@@ -59,8 +59,8 @@ export default {
     OtpForm,
   },
   methods: {
-    toggleOtpForm(message) {
-      alert(message);
+    toggleOtpForm() {
+    
       this.showOtpForm = !this.showOtpForm;
     },
     async fetchRecords() {

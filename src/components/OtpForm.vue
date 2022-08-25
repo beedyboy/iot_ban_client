@@ -1,7 +1,8 @@
 <template>
   <div class="form-container">
     <div class="header">
-      <h1> {{message}} </h1>
+     
+        <h1> {{title}}</h1>
     </div>
 
     <div class="form">
@@ -21,11 +22,10 @@ export default {
   //     this.$emit('toggle-otp-form', message)
   //   }
   // },
-  props : {
+props : {
+  title: String,
 
-    message: String,
   }
-
 
 
 };

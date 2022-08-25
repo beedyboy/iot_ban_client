@@ -10,7 +10,7 @@
         <!-- <h5> {{message}}</h5> -->
       <p> Add Description Here...</p>
       </div>
-        <button @click="handleOtp(message)"> Attend To!</button>
+        <button @click="handleOtp(title)"> Attend To!</button>
 
     </div>
 
@@ -32,14 +32,14 @@ export default {
   
  
   methods: {
-    handleOtp(message) {
-      this.$emit('toggle-otp-form', message)
+    handleOtp(title) {
+      this.$emit('toggle-otp-form', title)
     }
   },
   props : {
     name: String,
     age: String,
-    message: String,
+    // message: String,
   }
   
 
