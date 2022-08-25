@@ -14,10 +14,12 @@
       </div>
     </div>
   </div>
-  <button @toggle-otp-form="$emit('toggle-otp-form')" />
-  <div v-show="showOtpForm" v-for="pat in patients" :key="pat.id">
-    <OtpForm @otp-form="OtpForm"  :title="pat.title" />
+  
+
+  <div v-show="showOtpForm" >
+    <OtpForm @otp-form="OtpForm"  v-for="pat in patients" :key="pat.title"  :title="pat.title" @click="OtpForm = title "></OtpForm>
   </div>
+  
   <Pagination />
 </template>
 
@@ -41,13 +43,13 @@ export default {
           id: 2,
           name: "Omj",
           age: 25,
-          title: " Enter your token Omj",
+          title: " Get access to Omj",
         },
         {
           id: 3,
           name: "Tomi",
           age: 30,
-          title: "Enter your token Tomi",
+          title: "Get access to Tomi",
         },
       ],
     };
@@ -59,8 +61,7 @@ export default {
     OtpForm,
   },
   methods: {
-    toggleOtpForm() {
-    
+    toggleOtpForm( ) {
       this.showOtpForm = !this.showOtpForm;
     },
     async fetchRecords() {

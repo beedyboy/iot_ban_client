@@ -16,16 +16,7 @@
 export default {
   name: "OtpForm",
 
-
-  //  methods: {
-  //   handleOtp(message) {
-  //     this.$emit('toggle-otp-form', message)
-  //   }
-  // },
-props : {
-  title: String,
-
-  }
+props : ['title']
 
 
 };

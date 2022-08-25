@@ -39,7 +39,7 @@ export default {
   props : {
     name: String,
     age: String,
-    // message: String,
+    // title: String,
   }
   
 
@@ -100,7 +100,7 @@ export default {
  }
 
 button{
-  display:flex;
+  /* display:flex; */
   flex-direction:row;
   align-items: center;
   margin-top: 220%;
