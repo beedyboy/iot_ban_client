@@ -41,7 +41,7 @@
         </div>
 
         <div class="create">
-          <button type="submit" :disabled="sending"> Create Account </button>
+          <button type="submit">{{ sending ? 'creating account..' : 'Create Account'}} </button>
         </div>
       </form>
 
@@ -70,17 +70,19 @@ export default {
       email: "",
       password: "",
       userType: "",
-      sending: false,
+      sending: false
     }
   },
   methods: {
     async register(e) {
       e.preventDefault()
-      this.sending = true
+      // this.sending = true
       if (this.email === "" || this.password === "") {
-        alert("Please enter your email and password correctly")
+
+       this.$toast.warning("Please enter your details correctly!");
       }
       else {
+        this.sending = true
         const newUser = {
           firstName: this.firstName,
           lastName: this.lastName,
@@ -100,17 +102,20 @@ export default {
         if (response.status === 201) {
           const data = await response.json();
           console.log({ data })
-          alert(data.message)
+          this.$toast.success(data.message)
 
           this.firstName = ""
             this.lastName = ""
             this.email = ""
             this.password = ""
             this.userType = ""
-            this.sending = false
-        } else {
-          alert('Error registering user')
+          const User = data.user
+          localStorage.setItem ("auth", data.token)
+          this.$router.push( User.userType === 'PATIENT' ? '/records' : '/' );
+           } else {
+          this.$toast.error('Error registering user')
         }
+          this.sending = false
 
       }
     }

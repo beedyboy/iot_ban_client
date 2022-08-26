@@ -65,7 +65,9 @@ export default {
     async login(e) {
       e.preventDefault()
       if (this.email === "" || this.password === "") {
-        alert("Please enter your email and password correctly")
+        
+        this.$toast.warning("Please enter your email and password correctly!");
+
       }
       else {
         this.sending = true
@@ -83,14 +85,14 @@ export default {
         const data = await response.json();
         if (response.status === 200) {
           console.log({ data })
-          alert(data.message)
+          this.$toast.success(data.message)
           this.email = ""
           this.password = ""
           const User = data.user
           localStorage.setItem ("auth", data.token)
            this.$router.push( User.userType === 'PATIENT' ? '/records' : '/' );
         } else {
-          alert(data.message)
+          this.$toast.error(data.message)
 
         }
           this.sending = false
