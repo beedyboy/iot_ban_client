@@ -1,8 +1,8 @@
 <template>
   <div class="form-container">
-    <div class="header">
+    <div  class="header">
      
-        <h1> {{title}}</h1>
+        <h1>  {{title}} </h1>
     </div>
 
     <div class="form">

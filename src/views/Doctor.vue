@@ -8,6 +8,7 @@
         <Card
           :name="pat.name"
           :age="pat.age"
+         
           @toggle-otp-form="toggleOtpForm"
           
         />
@@ -16,8 +17,12 @@
   </div>
   
 
-  <div v-show="showOtpForm" >
-    <OtpForm @otp-form="OtpForm"  v-for="pat in patients" :key="pat.title"  :title="pat.title" @click="OtpForm = title "></OtpForm>
+  <div v-show="showOtpForm" v-for="pat in patients" :key="pat.id" >
+    <OtpForm 
+    @otp-form="OtpForm"
+    :title="pat.title"
+    
+    ></OtpForm>
   </div>
   
   <Pagination />
@@ -61,7 +66,8 @@ export default {
     OtpForm,
   },
   methods: {
-    toggleOtpForm( ) {
+    toggleOtpForm() {
+      
       this.showOtpForm = !this.showOtpForm;
     },
     async fetchRecords() {

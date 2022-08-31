@@ -93,6 +93,7 @@ export default {
         const response = await fetch('https://ban-iot.herokuapp.com/api/register', {
           method: 'POST',
           headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`,
             'Content-type': 'application/json',
           },
           body: JSON.stringify(newUser)
