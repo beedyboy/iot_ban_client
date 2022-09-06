@@ -11,7 +11,7 @@
     <div class="form-control">
         <label> First Name </label>
         <input 
-         v-model="first_name"
+         v-model="firstname"
          type="text"
          name="text"
          />
@@ -19,7 +19,7 @@
     <div class="form-control">
         <label> Last Name </label>
         <input 
-        v-model="last_name"
+        v-model="lastname"
         type="text"
         name="Last"
         />
@@ -51,7 +51,7 @@
 
     <div class="save-form">
           <button type="submit"> 
-            Save Profile 
+            {{ sending ? 'saving...' : 'Save Form '}}
         </button>
     </div>
   </form>
@@ -67,12 +67,51 @@ export default {
 
     data() {
         return {
-            first_name: "",
-            last_name: "",
+            firstName: "",
+            lastName: "",
+            age: "",
+            address: "",
+            gender: "",
+            sending: false,
+        };
+    },
+    methods : {
+        async submit(e) {
+            e.preventDefault();
+            if (this.firstName === "" || this.lastName === "" || this.age === "" || this.address === "" || this.gender) {
+                alert("Please enter your details correctly")
+            }else{
+                this.sending = true
+                const newProfile =  {
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                    age: this.age,
+                    address: this.address,
+                    gender: this.address,
+                };
+                console.log (newProfile)
+                
+                const response =   ({
+                method: 'PUT REQUEST',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`,
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify(newProfile)
+                })
+                const data = await response.json();
+                {
+                console.log({ data })
+                alert(data.message)
+                }
+            }
             
         }
-    },
+        
+    }
+   
 }
+
 </script>
 
 
