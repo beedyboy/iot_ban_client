@@ -1,7 +1,7 @@
 <template>
   <div class="form-container">
     <div class="header">
-      <h1>{{ patient.title }}</h1>
+      <h1>Enter token for {{ name }}</h1>
     </div>
 
     <div class="form">
@@ -16,7 +16,7 @@ export default {
   name: "OtpForm", 
 
   props:{
-    patient: Object
+    name: String
   },
 };
 </script>

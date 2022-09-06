@@ -90,7 +90,7 @@ export default {
           this.email = ""
           this.password = ""
           const user = data.user
-          localStorage.setItem ("auth", data.token)
+          localStorage.setItem ("token", data.token)
           localStorage.setItem('completed', user.completed);
            this.$router.push( user.userType === 'PATIENT' ? '/records' : '/emergency' );
         } else {

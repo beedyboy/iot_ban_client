@@ -115,7 +115,7 @@ export default {
           this.userType = "";
           const User = data.user;
           localStorage.setItem("auth", data.token);
-          this.$router.push(User.userType === "PATIENT" ? "/records" : "/");
+          this.$router.push(User.userType === "PATIENT" ? "/records" : "/emergency");
         } else {
           this.$toast.error("Error registering user");
         }

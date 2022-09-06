@@ -4,27 +4,18 @@
   <div class="main-container">
     <!-- <h1>Patients' Alert</h1> -->
     <div class="card-container">
+      <div v-if="!patients || patients.length < 1">
+       <h1>No Emergency at the moment!</h1>
+      </div>
       <div v-for="pat in patients" :key="pat.id">
-        <Card
-          :name="pat.name"
-          :age="pat.age"
-          :id="pat.id"
-          @toggle-otp-form="toggleOtpForm"
-          
-        />
+        <Card :name="pat.patient.firstname" :age="pat.patient.age" :id="pat.id" @toggle-otp-form="toggleOtpForm" />
       </div>
     </div>
   </div>
-  
 
- 
-    <OtpForm  v-show="showOtpForm"
-     @otp-form="OtpForm" 
-    :patient="patient"
-    
-    ></OtpForm>
-   
-  
+  <OtpForm v-show="showOtpForm" :id="id" :name="name" @otp-form="OtpForm"></OtpForm>
+
+
   <Pagination />
 </template>
 
@@ -37,31 +28,13 @@ export default {
   data() {
     return {
       showOtpForm: false,
-      patients: [
-        {
-          id: 1,
-          name: "Bola",
-          age: 20,
-          title: "Get access to Bola",
-        },
-        {
-          id: 2,
-          name: "Omj",
-          age: 25,
-          title: " Get access to Omj",
-        },
-        {
-          id: 3,
-          name: "Tomi",
-          age: 30,
-          title: "Get access to Tomi",
-        },
-      ],
-      patient: {}
+      patients: [],
+      id: 0,
+      name: ""
     };
   },
   name: "Doctor",
-  components: { 
+  components: {
     Card,
     Pagination,
     OtpForm,
@@ -69,15 +42,21 @@ export default {
   methods: {
     toggleOtpForm(id) {
       this.showOtpForm = !this.showOtpForm;
-      if(this.showOtpForm) {
-         this.patient = this.patients.filter((x) => x.id === id);
-         console.log('patient', this.patients);
+      if (this.showOtpForm) {
+        const patient = this.patients.filter((x) => x.id === id);
+        // console.log({ patient })
+        this.id = patient[0].id;
+        this.name = patient[0].patient.firstname;
       }
     },
     async fetchRecords() {
-      const res = await fetch("https://ban-iot.herokuapp.com/api/health");
-
-      this.patients = await res.json();
+      const res = await fetch("https://ban-iot.herokuapp.com/api/health/emergency", {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      const data = await res.json();
+      this.patients = data.data;
     },
   },
   async created() {
@@ -99,11 +78,9 @@ export default {
 }
 
 .card-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  width: 70%;
-  height: 300px;
-  /* gap: 20px; */
-  justify-content: space-between;
+  display: flex;
+  width: 100%;
+  gap: 20px; 
+  padding: 20px 0;
 }
 </style>
