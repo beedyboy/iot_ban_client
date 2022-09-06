@@ -65,7 +65,9 @@ export default {
     async login(e) {
       e.preventDefault()
       if (this.email === "" || this.password === "") {
-        alert("Please enter your email and password correctly")
+        
+        this.$toast.warning("Please enter your email and password correctly!");
+
       }
       else {
         this.sending = true
@@ -73,7 +75,7 @@ export default {
           email: this.email,
           password: this.password,
         }
-        const response = await fetch('https://ban-iot.herokuapp.com/api/login', {
+        const response = await fetch('http://127.0.0.1:8000/api/login', {
           method: 'POST',
           headers: {
             'Content-type': 'application/json',
@@ -83,14 +85,17 @@ export default {
         const data = await response.json();
         if (response.status === 200) {
           console.log({ data })
-          alert(data.message)
+          this.$toast.success(data.message)
+          
           this.email = ""
           this.password = ""
-          const User = data.user
-          localStorage.setItem ("auth", data.token)
-           this.$router.push( User.userType === 'PATIENT' ? '/records' : '/' );
+          const user = data.user
+          localStorage.setItem ("token", data.token)
+          localStorage.setItem('completed', user.completed);
+           this.$router.push( user.userType === 'PATIENT' ? '/records' : '/emergency' );
         } else {
-          alert(data.message)
+          this.$toast.error(data.message)
+          
 
         }
           this.sending = false

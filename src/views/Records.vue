@@ -44,7 +44,7 @@
       </table>
     </div>
   </div>
-  <Modal :show="open" title="Add a Record">
+  <Modal :show="open" title="Add a Record" @close-modal="open=false">
     <PatientForm />
   </Modal>
 </template>
@@ -83,6 +83,7 @@ export default {
 .container {
   width: 96.5%;
   height: 100vh;
+   /* overflow: auto; */
 }
 
 .med-bar {

@@ -41,7 +41,7 @@
         <input 
         v-model="saturation"
         type="text"
-        name="yourage"
+        name="saturation"
         />
     </div>
     <div class="form-control">
@@ -49,18 +49,21 @@
         <input 
         v-model="pulse_rate"
         type="text"
-        name="yourage"
+        name="pulse"
         />
     </div>
     <div class="form-control">
         <label> Respiratory Rate </label>
         <input 
+        v-model="respiratory"
         type="text"
-        name="yourage"
+        name="respiratory"
         />
     </div>
 
-    <input type="submit" :value="sending ? 'saving..' : 'Save Form '" class="btn"/>
+   <div class="sub-btn">
+     <button type="submit">{{ sending ? 'saving..' : 'Save Form ' }}</button>
+   </div>
   </form>
   
     </div>
@@ -72,6 +75,7 @@
 <script>
 export default {
     name: 'Form',
+
     data () {
       return { 
         blood_pressure : "",
@@ -79,13 +83,15 @@ export default {
         temperature : "",
         glucose_level : "",
         pulse_rate : "",
+        saturation: "",
+        respiratory: "",
         sending : false
       }
     },
     methods: {
       async submit(e) {
         e.preventDefault()
-        if (this.blood_pressure === "" || this.heart_rate ==="" || this.temperature === "" || this.glucose_level  === "" || this.pulse_rate === "") {
+        if (this.blood_pressure === "" || this.heart_rate ==="" || this.temperature === "" || this.glucose_level  === "" || this.pulse_rate === "" || this.saturation === "" || this.respiratory === "") {
           alert("Please enter your details correctly")
         } 
         else {
@@ -96,14 +102,18 @@ export default {
           temperature : this.temperature,
           glucose_level : this.glucose_level,
           pulse_rate : this.pulse_rate,
-            }
-            const response = await fetch('https://ban-iot.herokuapp.com/api/health/create', {
-             method: 'POST',
-             headers: {
-               'Content-type': 'application/json',
-             },
-             body: JSON.stringify(payload)
-           })
+          saturation : this.saturation,
+          respiratory : this.respiratory, 
+        }
+        console.log(payload)
+        const response = await fetch('https://ban-iot.herokuapp.com/api/health/create', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`,
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify(payload)
+        })
         const data = await response.json();
         if (response.status === 200) {
           console.log({ data })
@@ -126,28 +136,18 @@ export default {
 
 }
 
-/* .container {
-  background: #e8ecf5;
-  height: 100%;
-  width: 100%;
-
-} */
-
-
 .form-container {
     margin-top: 1px;
-    margin-bottom: 10px;
+  
     padding: 10px;
      background: #e8ecf5;
-    width: 100%;
+    width: 98.5%;
+ 
 }
 .form-page {
-    /* display:flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center; */
     width: 70%;
     margin: 15px auto;
+    /* overflow-y: scroll; */
 }
 
 .form-control {
@@ -177,12 +177,18 @@ export default {
 
 }
 
-.btn {
-    margin-left: 60px;
-    border-radius: 10px;
-    background-color: #1424B3;
+.sub-btn {
+  display: flex;
+  justify-content: flex-end; 
+    width: 100%;
+    margin: 25px 0 25px;
+}
+.sub-btn > button  {
+    background-color: #1424B3; 
     color: white;
-    width: 50%;
+    width: auto;
+    padding: 10px;
+    border-radius: 10px;
    height: 40px;
    font-size:17px;
 
