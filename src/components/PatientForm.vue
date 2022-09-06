@@ -41,7 +41,7 @@
         <input 
         v-model="saturation"
         type="text"
-        name="yourage"
+        name="saturation"
         />
     </div>
     <div class="form-control">
@@ -49,14 +49,15 @@
         <input 
         v-model="pulse_rate"
         type="text"
-        name="yourage"
+        name="pulse"
         />
     </div>
     <div class="form-control">
         <label> Respiratory Rate </label>
         <input 
+        v-model="respiratory"
         type="text"
-        name="yourage"
+        name="respiratory"
         />
     </div>
 
@@ -82,13 +83,15 @@ export default {
         temperature : "",
         glucose_level : "",
         pulse_rate : "",
+        saturation: "",
+        respiratory: "",
         sending : false
       }
     },
     methods: {
       async submit(e) {
         e.preventDefault()
-        if (this.blood_pressure === "" || this.heart_rate ==="" || this.temperature === "" || this.glucose_level  === "" || this.pulse_rate === "") {
+        if (this.blood_pressure === "" || this.heart_rate ==="" || this.temperature === "" || this.glucose_level  === "" || this.pulse_rate === "" || this.saturation === "" || this.respiratory === "") {
           alert("Please enter your details correctly")
         } 
         else {
@@ -99,14 +102,18 @@ export default {
           temperature : this.temperature,
           glucose_level : this.glucose_level,
           pulse_rate : this.pulse_rate,
-            }
-            const response = await fetch('https://ban-iot.herokuapp.com/api/health/create', {
-             method: 'POST',
-             headers: {
-               'Content-type': 'application/json',
-             },
-             body: JSON.stringify(payload)
-           })
+          saturation : this.saturation,
+          respiratory : this.respiratory, 
+        }
+        console.log(payload)
+        const response = await fetch('https://ban-iot.herokuapp.com/api/health/create', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`,
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify(payload)
+        })
         const data = await response.json();
         if (response.status === 200) {
           console.log({ data })

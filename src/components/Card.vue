@@ -7,10 +7,9 @@
       </div>
       <div class="text">
         <h1>{{name}} | {{age}}</h1>
-        <!-- <h5> {{message}}</h5> -->
       <p> Add Description Here...</p>
       </div>
-        <button @click="handleOtp(title)"> Attend To!</button>
+        <button @click="handleOtp"> Attend To!</button>
 
     </div>
 
@@ -32,13 +31,16 @@ export default {
   
  
   methods: {
-    handleOtp(title) {
-      this.$emit('toggle-otp-form', title)
-    }
+    handleOtp() {
+      this.$emit('toggle-otp-form', this.id)
+      console.log('you clicked me');
+    },
+    
   },
   props : {
     name: String,
     age: String,
+    id: Number,
     // title: String,
   }
   

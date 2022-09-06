@@ -8,7 +8,7 @@
         <Card
           :name="pat.name"
           :age="pat.age"
-         
+          :id="pat.id"
           @toggle-otp-form="toggleOtpForm"
           
         />
@@ -17,13 +17,13 @@
   </div>
   
 
-  <div v-show="showOtpForm" v-for="pat in patients" :key="pat.id" >
-    <OtpForm 
-    @otp-form="OtpForm"
-    :title="pat.title"
+ 
+    <OtpForm  v-show="showOtpForm"
+     @otp-form="OtpForm" 
+    :patient="patient"
     
     ></OtpForm>
-  </div>
+   
   
   <Pagination />
 </template>
@@ -57,18 +57,22 @@ export default {
           title: "Get access to Tomi",
         },
       ],
+      patient: {}
     };
   },
   name: "Doctor",
-  components: {
+  components: { 
     Card,
     Pagination,
     OtpForm,
   },
   methods: {
-    toggleOtpForm() {
-      
+    toggleOtpForm(id) {
       this.showOtpForm = !this.showOtpForm;
+      if(this.showOtpForm) {
+         this.patient = this.patients.filter((x) => x.id === id);
+         console.log('patient', this.patients);
+      }
     },
     async fetchRecords() {
       const res = await fetch("https://ban-iot.herokuapp.com/api/health");

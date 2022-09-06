@@ -78,7 +78,6 @@ export default {
         const response = await fetch('https://ban-iot.herokuapp.com/api/login', {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem("token")}`,
             'Content-type': 'application/json',
           },
           body: JSON.stringify(newUser)
@@ -87,13 +86,16 @@ export default {
         if (response.status === 200) {
           console.log({ data })
           this.$toast.success(data.message)
+          
           this.email = ""
           this.password = ""
-          const User = data.user
+          const user = data.user
           localStorage.setItem ("auth", data.token)
-           this.$router.push( User.userType === 'PATIENT' ? '/records' : '/' );
+          localStorage.setItem('completed', user.completed);
+           this.$router.push( user.userType === 'PATIENT' ? '/records' : '/emergency' );
         } else {
           this.$toast.error(data.message)
+          
 
         }
           this.sending = false

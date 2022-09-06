@@ -1,8 +1,7 @@
 <template>
   <div class="form-container">
-    <div  class="header">
-     
-        <h1>  {{title}} </h1>
+    <div class="header">
+      <h1>{{ patient.title }}</h1>
     </div>
 
     <div class="form">
@@ -14,14 +13,12 @@
 
 <script>
 export default {
-  name: "OtpForm",
+  name: "OtpForm", 
 
-props : ['title']
-
-
+  props:{
+    patient: Object
+  },
 };
-
-
 </script>
 
 <style scoped>

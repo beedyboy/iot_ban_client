@@ -1,7 +1,7 @@
 <template>
   <nav v-show="showNavigation">
     <div class="logo">
-      <p>IotBan. {{showNavigation}}</p>
+      <p>IotBan. </p>
     </div>
     <ul>
       <li><router-link to="/" class="home">Home</router-link></li>
@@ -11,12 +11,12 @@
       <li><router-link to="/login" class="login">Log in</router-link></li>
       <li><router-link to="/signup" class="signup">Sign Up</router-link></li>
     </ul>
-
   </nav>
-    <Navbar v-if="!showNavigation" />
-
+  <Navbar v-if="!showNavigation" />
+  
   <main>
     <router-view></router-view>
+    
   </main>
 
 
