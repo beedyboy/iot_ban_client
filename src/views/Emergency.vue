@@ -50,7 +50,7 @@ export default {
       }
     },
     async fetchRecords() {
-      const res = await fetch("http://127.0.0.1:8000/api/health/emergency", {
+      const res = await fetch("https://ban-iot.herokuapp.com/api/health/emergency", {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
