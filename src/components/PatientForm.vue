@@ -74,7 +74,7 @@
 
 <script>
 export default {
-    name: 'Form',
+    name: 'PatientForm',
 
     data () {
       return { 

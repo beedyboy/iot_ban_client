@@ -1,6 +1,12 @@
 <template>
     <div class="backdrop">
       <div class="form-container">
+
+    <span 
+  
+    type="submit" class="close"> &times; 
+</span>
+      
   <form class="form-page" @submit="submit">
     <div class="form-control">
         <label> First Name </label>
@@ -42,11 +48,12 @@
         name="text"
         />
     </div>
-    <div class="create">
-          <button type="submit">
-   
-          </button>
-        </div>
+
+    <div class="save-form">
+          <button type="submit"> 
+            Save Profile 
+        </button>
+    </div>
   </form>
   
     </div>
@@ -56,7 +63,15 @@
 
 <script>
 export default {
-    
+    name: "ProfileForm",
+
+    data() {
+        return {
+            first_name: "",
+            last_name: "",
+            
+        }
+    },
 }
 </script>
 
@@ -83,23 +98,43 @@ export default {
         margin: 100px auto;
         /* border: 5px solid red; */
         padding: 10px;
-        padding-top:5%;
+        /* padding-top:5%; */
         align-items: center;
         text-align: center;
         background: #e8ecf5;
         width: 30%;
-        height: 70%;
+        height: 80%;
         border-radius: 20px;
        
       }
+    
+    .close {
+        color: red;
+        /* border: 5px solid red; */
+        float: right;
+        font-size: 50px;
+        font-weight:bolder;
+        margin-right: 5%;
+        }
+
+        .close:hover,
+        .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+        }
+ 
+
       .form-page {
           width: 70%;
-          margin: 15px auto;
-          /* overflow-y: scroll; */
+          margin: 15px auto; 
+          /* border: 5px solid red; */
+          margin-top: 15%;
+         
       }
       
       .form-control {
-          /* margin: 15px 0; */
+
             display:flex;
           flex-direction: column;
           justify-content: space-between;
@@ -125,6 +160,18 @@ export default {
       
       }
 
-        
+        button {
+        width: 45%;
+        height: 50px;
+        margin-top: 20px;
+        /* margin-bottom: 30px; */
+        background-color: #1424b3;
+        border-radius: 10px;
+        color: white;
+        text-align: center;
+        font-size: 20px;
+        font-weight: 200;
+        }
+      
       
 </style>
