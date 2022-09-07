@@ -6,7 +6,7 @@ import Home from '../views/Home'
 import Records from '../views/Records'
 import Emergency from '../views/Emergency'
 import NotFound from '../views/NotFound'
-import ProfileForm from '../views/ProfileForm'
+// import ProfileForm from '../views/ProfileForm'
 
 
 
@@ -36,11 +36,11 @@ const routes = [
     name:  "Emergency",
     component: Emergency,
   },
-  {
-    path: '/profileform',
-    name:  "ProfileForm",
-    component: ProfileForm,
-  },
+  // {
+  //   path: '/profileform',
+  //   name:  "ProfileForm",
+  //   component: ProfileForm,
+  // },
 
   // catchall 404
   {

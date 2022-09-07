@@ -80,24 +80,19 @@ export default {
 
 .modal-header {
   display:flex;
-  
+  justify-content: space-between;
   padding: 2px 16px;
   background-color: rgb(255, 255, 255);
-  padding: 2px 16px;
+
 }
 
-h1 {
-  display:flex;
-  flex-direction: row;
-  align-items: center;
-}
 
 .close {
   color: red;
-  float: right;
+  /* float: right; */
   font-size: 60px;
   font-weight:bolder;
-  margin-left: 80%;
+  /* margin-left: 80%; */
 }
 
 .close:hover,
