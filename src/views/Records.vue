@@ -6,6 +6,7 @@
     <div class="med-bar">
       <h5>Patient's Treatment History</h5>
       <button @click="toggleForm">Add Record</button>
+      <button @click="toggleProfile"> Profile</button>
     </div>
     <hr />
 
@@ -46,29 +47,45 @@
   </div>
   <Modal :show="open" title="Add a Record" @close-modal="open=false">
     <PatientForm />
+    
+  </Modal>
+  
+  <Modal :show="openProfile" title="Update your Profile" @close-modal="openProfile=false">
+    <ProfileForm/>
   </Modal>
 </template>
 
 <script>
 import Modal from "@/components/Modal.vue";
 import PatientForm from "@/components/PatientForm.vue";
+import ProfileForm from "@/components/ProfileForm.vue";
+
 
 export default {
   name: "Records",
   data() {
-    return { open: false };
+    return { 
+      open: false,
+      openProfile: false, 
+    };
   },
   methods: {
     toggleForm(e) {
       e.preventDefault();
       this.open = !this.open;
-    
     },
+
+    toggleProfile(e) {
+      e.preventDefault();
+      this.openProfile = !this.openProfile;
+    },
+
     
   },
   components: {
     Modal,
     PatientForm,
+    ProfileForm,
   },
 };
 </script>
