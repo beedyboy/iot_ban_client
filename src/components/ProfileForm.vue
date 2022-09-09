@@ -56,7 +56,7 @@
 
     <div class="save-form">
           <button type="submit"> 
-            {{ sending ? 'saving...' : 'Save Form '}}
+            {{ sending ? 'saving...' : 'Update Form '}}
         </button>
     </div>
   </form>

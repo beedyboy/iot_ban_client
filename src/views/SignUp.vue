@@ -103,7 +103,7 @@ export default {
             body: JSON.stringify(newUser),
           }
         );
-        if (response.status === 200) {
+        if (response.status === 201) {
           const data = await response.json();
           console.log({ data });
           this.$toast.success(data.message);
