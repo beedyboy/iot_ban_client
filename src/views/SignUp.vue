@@ -43,8 +43,7 @@
         <div v-if="passwordError" class="error">{{passwordError}}</div>
 
         <div class="create">
-          <button type="submit">
-            {{ sending ? "creating account.." : "Create Account" }}
+          <button type="submit" :disabled="$store.state.account.registering">{{ $store.state.account.registering ? "creating account.." : "Create Account" }}
           </button>
         </div>
       </form>
@@ -77,14 +76,12 @@ export default {
   methods: {
     async register(e) {
       e.preventDefault();
-      console.log('form submitted')
       // validation of password
     this.passwordError = this.password.length > 5 ? 
     '' : 'Password must be at least 6 characters long.'
       if (this.email === "" || this.password === "") {
         this.$toast.warning("Please enter your details correctly!");
-      } else {
-        this.sending = true;
+      } else { 
         const newUser = {
           firstName: this.firstName,
           lastName: this.lastName,
@@ -92,34 +89,8 @@ export default {
           password: this.password,
           userType: this.userType,
         };
-        const response = await fetch(
-          "https://ban-iot.herokuapp.com/api/register",
-          {
-            method: "POST",
-            headers: {
-             
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify(newUser),
-          }
-        );
-        if (response.status === 200) {
-          const data = await response.json();
-          console.log({ data });
-          this.$toast.success(data.message);
-
-          this.firstName = "";
-          this.lastName = "";
-          this.email = "";
-          this.password = "";
-          this.userType = "";
-          const User = data.user;
-          localStorage.setItem("auth", data.token);
-          this.$router.push(User.userType === "PATIENT" ? "/records" : "/emergency");
-        } else {
-          this.$toast.error("Error registering user");
-        }
-        this.sending = false;
+       
+        this.$store.dispatch('account/register', newUser);
       }
     },
   },

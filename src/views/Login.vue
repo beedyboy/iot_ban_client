@@ -1,7 +1,7 @@
 
-<template> 
+<template>
 
-  <div class="container"> 
+  <div class="container">
     <div class="image-container">
       <div class="logo">
 
@@ -9,10 +9,7 @@
 
         <img :src="require('../assets/login.png')" />
 
-      </div>
-
-
-
+      </div> 
       <p>
         With OpenSSL, your health records <br />
         are secured from end to end!
@@ -37,9 +34,9 @@
 
         </div>
         <a href="#">Forgot Password?</a>
-        
-          <button type="submit">{{ sending ? 'processing...' : 'Sign In '}}</button>
-          
+
+        <button type="submit" :disabled="$store.state.account.loggingIn">{{ $store.state.account.loggingIn ? 'processing...' : 'Sign In '}}</button>
+
       </form>
 
       <footer class="footer">
@@ -50,7 +47,7 @@
   </div>
 </template>
 
-<script>
+<script> 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Login',
@@ -63,45 +60,20 @@ export default {
   },
   methods: {
     async login(e) {
-      e.preventDefault()
+      e.preventDefault();
       if (this.email === "" || this.password === "") {
-        
+
         this.$toast.warning("Please enter your email and password correctly!");
 
-      }
-      else {
-        this.sending = true
+      } else {
         const newUser = {
           email: this.email,
           password: this.password,
         }
-        const response = await fetch('https://ban-iot.herokuapp.com/api/login', {
-          method: 'POST',
-          headers: {
-            'Content-type': 'application/json',
-          },
-          body: JSON.stringify(newUser)
-        })
-        const data = await response.json();
-        if (response.status === 200) {
-          console.log({ data })
-          this.$toast.success(data.message)
-          
-          this.email = ""
-          this.password = ""
-          const user = data.user
-          localStorage.setItem ("token", data.token)
-          localStorage.setItem('completed', user.completed);
-           this.$router.push( user.userType === 'PATIENT' ? '/records' : '/emergency' );
-        } else {
-          this.$toast.error(data.message)
-          
-
-        }
-          this.sending = false
-          
+        this.$store.dispatch('account/login', newUser);
       }
-    }
+
+    }  
   }
 };
 </script>
@@ -235,7 +207,7 @@ input[type="password"] {
 button {
   width: 50%;
   height: 50px;
- margin-left: 110px;
+  margin-left: 110px;
   margin-top: 30px;
   margin-bottom: 30px;
   background-color: #1424B3;

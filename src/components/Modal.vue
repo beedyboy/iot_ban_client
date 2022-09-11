@@ -51,10 +51,9 @@ export default {
   margin:100px auto;
   display:flex;
   flex-direction: column;
-  /* margin-top: 20%; */
-  /* margin-left: 15%; */
-  /* padding: 20px; */
   width: 70%;
+
+  /* width: calc(100% - 200px); */
   -webkit-animation-name: animatetop;
   -webkit-animation-duration: 0.4s;
   animation-name: animatetop;
@@ -71,8 +70,7 @@ export default {
   to {top:0; opacity:1}
 }
 
-.modal-content {
- 
+.modal-content { 
   width: 100%;
   background-color: rgb(255, 255, 255);
   

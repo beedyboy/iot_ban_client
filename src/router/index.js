@@ -1,14 +1,12 @@
-import { createWebHistory, createRouter } from "vue-router"
+import { createWebHistory, createRouter } from "vue-router";
 
-import SignUp from '../views/SignUp'
-import Login from  '../views/Login'
-import Home from '../views/Home'
-import Records from '../views/Records'
-import Emergency from '../views/Emergency'
-import NotFound from '../views/NotFound'
+import SignUp from "../views/SignUp";
+import Login from "../views/Login";
+import Home from "../views/Home";
+import Records from "../views/Records";
+import Emergency from "../views/Emergency";
+import NotFound from "../views/NotFound";
 // import ProfileForm from '../views/ProfileForm'
-
-
 
 const routes = [
   {
@@ -16,24 +14,24 @@ const routes = [
     name: "Home",
     component: Home,
   },
-   {
+  {
     path: "/signup",
     name: "SignUp",
     component: SignUp,
   },
   {
-    path: '/login',
-      name: "Login",
+    path: "/login",
+    name: "Login",
     component: Login,
   },
   {
-    path: '/records',
-    name:  "Records",
+    path: "/records",
+    name: "Records",
     component: Records,
   },
   {
-    path: '/emergency',
-    name:  "Emergency",
+    path: "/emergency",
+    name: "Emergency",
     component: Emergency,
   },
   // {
@@ -44,23 +42,28 @@ const routes = [
 
   // catchall 404
   {
-    path: '/:catchAll(.*)',
-    name: 'NotFound',
-    component: NotFound
+    path: "/:catchAll(.*)",
+    name: "NotFound",
+    component: NotFound,
   },
- 
-]
-
-
-
-
-
+];
 
 const router = createRouter({
-  history: createWebHistory (process.env.BASE_URL),
+  history: createWebHistory(process.env.BASE_URL),
   routes,
-})
-
-export default router
-
-
+});
+router.beforeEach((to, from, next) => {
+  const publicPages = ["/login", "/register"];
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = localStorage.getItem("token");
+  if (authRequired && !loggedIn) {
+    return next("/login");
+  }
+  // if(to.fullPath === '/emergency') {
+  //   if(!token) {
+  //     next('/login');
+  //   }
+  // }
+  next();
+});
+export default router;
