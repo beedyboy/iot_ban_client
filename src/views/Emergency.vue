@@ -5,7 +5,7 @@
     <!-- <h1>Patients' Alert</h1> -->
     <div class="card-container">
       <div v-if="!patients || patients.length < 1">
-       <h1>No Emergency at the moment!</h1>
+        <h1>No Emergency at the moment!</h1>
       </div>
       <div v-for="pat in patients" :key="pat.id">
         <Card :name="pat.patient.firstname" :age="pat.patient.age" :id="pat.id" @toggle-otp-form="toggleOtpForm" />
@@ -20,15 +20,24 @@
 </template>
 
 <script>
+import { computed } from "vue";
+import { useStore } from "vuex";
 import Pagination from "../components/Pagination";
 import Card from "../components/Card";
 import OtpForm from "@/components/OtpForm.vue";
 
 export default {
+  setup() {
+    const store = useStore();
+    store.dispatch('health/fetchRecords');
+    const patients = computed(() => store.state.health.patients);
+    return {
+      patients
+    }
+  },
   data() {
     return {
       showOtpForm: false,
-      patients: [],
       id: 0,
       name: ""
     };
@@ -49,18 +58,18 @@ export default {
         this.name = patient[0].patient.firstname;
       }
     },
-    async fetchRecords() {
-      const res = await fetch("https://ban-iot.herokuapp.com/api/health/emergency", {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-      const data = await res.json();
-      this.patients = data.data;
-    },
+    // async fetchRecords() {
+    //   const res = await fetch("https://ban-iot.herokuapp.com/api/health/emergency", {
+    //     headers: {
+    //       'Authorization': `Bearer ${localStorage.getItem('token')}`
+    //     }
+    //   });
+    //   const data = await res.json();
+    //   this.patients = data.data;
+    // },
   },
   async created() {
-    this.fetchRecords();
+    // this.fetchRecords();
   },
 };
 </script>
@@ -80,7 +89,7 @@ export default {
 .card-container {
   display: flex;
   width: 100%;
-  gap: 20px; 
+  gap: 20px;
   padding: 20px 0;
 }
 </style>

@@ -3,9 +3,9 @@
 
 <template>
   <div class="container">
-    <div class="med-bar">
+    <div class="record-container">
       <h5>Patient's Treatment History</h5>
-      <button @click="toggleForm">Add Record</button>
+      <button type="button" @click="toggleRecord">Add Record </button>
       <button @click="toggleProfile"> Profile</button>
     </div>
     <hr />
@@ -45,7 +45,7 @@
       </table>
     </div>
   </div>
-  <Modal :show="open" title="Add a Record" @close-modal="open=false">
+  <Modal :show="open" title="Add a Record" @close-modal="toggleRecord">
     <PatientForm />
     
   </Modal>
@@ -59,21 +59,26 @@
 import Modal from "@/components/Modal.vue";
 import PatientForm from "@/components/PatientForm.vue";
 import ProfileForm from "@/components/ProfileForm.vue";
-
+import { computed } from "vue";
+import { useStore } from "vuex";
 
 export default {
   name: "Records",
+  setup() {
+    const store = useStore();
+    const open = computed(() => store.state.health.addRecord);
+    const toggleRecord = () => store.dispatch('health/toggleRecord');
+    return {
+      open,
+      toggleRecord
+    }
+  },
   data() {
     return { 
-      open: false,
       openProfile: false, 
     };
   },
-  methods: {
-    toggleForm(e) {
-      e.preventDefault();
-      this.open = !this.open;
-    },
+  methods: { 
 
     toggleProfile(e) {
       e.preventDefault();
@@ -90,7 +95,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 * {
   margin: 0;
   padding: 0;
@@ -98,22 +103,25 @@ export default {
 }
 
 .container {
+  display: flex;
+  flex-direction: column;
   width: 96.5%;
   height: 100vh;
    /* overflow: auto; */
 }
 
-.med-bar {
+.record-container {
   display: flex;
-  justify-content: space-around;
+  column-gap: 18px;
   margin-left: 20%;
   margin-top: 70px;
   margin-bottom: 20px;
   font-size: 30px;
   /* line-height: 5px; */
 }
-h5 {
-  margin-left: 10%;
+.record-container h5 {
+  padding: 0;
+  margin-left: 6%;
 }
 
 hr {
@@ -148,7 +156,6 @@ button {
   width: 10%;
   height: 35px;
   font-size: 17px;
-  margin-top: 15px;
-  margin-right: 30%;
+  cursor: pointer;
 }
 </style>

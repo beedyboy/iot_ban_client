@@ -62,7 +62,7 @@
     </div>
 
    <div class="sub-btn">
-     <button type="submit">{{ sending ? 'saving..' : 'Save Form ' }}</button>
+     <button type="submit">{{ saving ? 'saving..' : 'Save Form ' }}</button>
    </div>
   </form>
   
@@ -73,19 +73,30 @@
 
 
 <script>
+  import { computed } from "vue";
+import { useStore } from "vuex";
 export default {
     name: 'PatientForm',
+setup() {
 
+  const store = useStore();
+  const saving = computed(() => store.state.health.saving);
+  const saveRecord = (payload) => store.dispatch('health/simulate', payload);
+
+  return {
+    saving,
+    saveRecord
+  }
+},
     data () {
       return { 
-        blood_pressure : "",
-        heart_rate : "",
-        temperature : "",
-        glucose_level : "",
-        pulse_rate : "",
-        saturation: "",
-        respiratory: "",
-        sending : false
+        blood_pressure : null,
+        heart_rate : null,
+        temperature : null,
+        glucose_level : null,
+        pulse_rate : null,
+        saturation: null,
+        respiratory: null
       }
     },
     methods: {
@@ -94,8 +105,7 @@ export default {
         if (this.blood_pressure === "" || this.heart_rate ==="" || this.temperature === "" || this.glucose_level  === "" || this.pulse_rate === "" || this.saturation === "" || this.respiratory === "") {
           alert("Please enter your details correctly")
         } 
-        else {
-          this.sending =true
+        else { 
           const payload = {
           blood_pressure : this.blood_pressure,
           heart_rate : this.heart_rate,
@@ -106,19 +116,7 @@ export default {
           respiratory : this.respiratory, 
         }
         console.log(payload)
-        const response = await fetch('https://ban-iot.herokuapp.com/api/health/create', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem("token")}`,
-            'Content-type': 'application/json',
-          },
-          body: JSON.stringify(payload)
-        })
-        const data = await response.json();
-        if (response.status === 200) {
-          console.log({ data })
-          alert(data.message)
-          }
+        this.saveRecord(payload); 
         }
       }
     }

@@ -1,13 +1,13 @@
 import { createStore } from 'vuex';
-// import Vue from 'vue';
-// import { createModule } from 'vuex-toast'
 import { account } from './account.module';
 import { alert } from './toast.module';
+import { health } from './health.module';
 
 export default createStore({
     
     modules: {
+        alert,
         account,
-        alert
+        health,
     }
 })

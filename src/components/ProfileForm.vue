@@ -67,7 +67,6 @@ export default {
             if (this.firstName === "" || this.lastName === "" || this.age === "" || this.address === "" || this.gender === "") {
                 this.$toast.warning("Please enter your details correctly!");
             } else {
-                this.sending = true
                 const newProfile = {
                     firstname: this.firstName,
                     lastname: this.lastName,
@@ -76,28 +75,6 @@ export default {
                     gender: this.gender,
                 };
                 this.updateProfile(newProfile);
-                // console.log(newProfile)
-                // const response = await fetch('https://ban-iot.herokuapp.com/api/profile', {
-                //     method: 'PUT',
-                //     headers: {
-                //         'Authorization': `Bearer ${localStorage.getItem("token")}`,
-                //         'Content-type': 'application/json',
-                //     },
-                //     body: JSON.stringify(newProfile)
-                // })
-                // const data = await response.json();
-                // if (response.status === 200) {
-                //     console.log({ data });
-                //     this.$toast.success(data.message);
-                //     this.firstName = "";
-                //     this.lastName = "";
-                //     this.age = "";
-                //     this.address = "";
-                //     this.gender = "";
-                // } else {
-                //     this.$toast.error("Error registering user");
-                // }
-                // this.sending = false;
             }
 
         }

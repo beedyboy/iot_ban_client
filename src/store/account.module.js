@@ -1,6 +1,6 @@
 
 import router from "../router";
-
+const BASE_URL = process.env.VUE_APP_BASE_URL_LOCAL;
 const state = {
   accessToken: null,
   loggingIn: false,
@@ -26,7 +26,7 @@ const mutations = {
 const actions = {
   async login({ dispatch, commit }, newUser) {
     commit("loginStart");
-    const response = await fetch("https://ban-iot.herokuapp.com/api/login", {
+    const response = await fetch(`${BASE_URL}/login`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -50,7 +50,7 @@ const actions = {
   },
   async register({ dispatch, commit }, newUser) {
     commit("registerStatus");
-    const response = await fetch("https://ban-iot.herokuapp.com/api/register", {
+    const response = await fetch(`${BASE_URL}/register`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -74,7 +74,7 @@ const actions = {
   },
   async updateProfile({ dispatch, commit }, newProfile) {
     commit("updateStatus");
-    const response = await fetch("https://ban-iot.herokuapp.com/api/profile", {
+    const response = await fetch(`${BASE_URL}/profile`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
