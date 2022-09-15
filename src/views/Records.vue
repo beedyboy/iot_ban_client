@@ -11,43 +11,28 @@
     <hr />
 
     <div class="tab">
-      <table style="width: 50%">
+      <!-- <table style="width: 50%">
         <tr>
           <th>Doctor</th>
           <th>Health Case</th>
           <th>Pulse (bpm)</th>
           <th>Date & Time</th>
-        </tr>
-        <tr>
-          <td>Doctor Bello</td>
-          <td>Hypertension</td>
-          <td>25 (bpm)</td>
-          <td>17-01-2022<br /><br />8:35am</td>
-        </tr>
-        <tr>
-          <td>Doctor Richard</td>
-          <td>High Blood Pressure</td>
-          <td>140/90mmHg</td>
-          <td>26-04-2022<br /><br />3:25pm</td>
-        </tr>
-        <tr>
-          <td>Doctor Hassan</td>
-          <td>High Body Temperature</td>
-          <td>105</td>
-          <td>11-11-2022<br /><br />11:00am</td>
-        </tr>
-        <tr>
-          <td>Doctor Esther</td>
-          <td>Diabetes</td>
-          <td>200mg/dl</td>
-          <td>07-07-2022<br /><br />10:45am</td>
-        </tr>
-      </table>
+        </tr> 
+      </table> -->
+      <table-lite
+:is-loading="table.isLoading"
+:columns="table.columns"
+:rows="table.rows"
+:total="table.totalRecordCount"
+:sortable="table.sortable"
+:messages="table.messages"
+@do-search="doSearch"
+@is-finished="table.isLoading = false"
+/>
     </div>
   </div>
   <Modal :show="open" title="Add a Record" @close-modal="toggleRecord">
-    <PatientForm />
-    
+    <PatientForm /> 
   </Modal>
   
   <Modal :show="openProfile" title="Update your Profile" @close-modal="openProfile=false">
@@ -55,21 +40,53 @@
   </Modal>
 </template>
 
-<script>
+<script> 
+  import { computed } from "vue";
+  import { useStore } from "vuex";
 import Modal from "@/components/Modal.vue";
 import PatientForm from "@/components/PatientForm.vue";
 import ProfileForm from "@/components/ProfileForm.vue";
-import { computed } from "vue";
-import { useStore } from "vuex";
+import TableLite from "vue3-table-lite";
 
 export default {
   name: "Records",
   setup() {
     const store = useStore();
     const open = computed(() => store.state.health.addRecord);
-    const toggleRecord = () => store.dispatch('health/toggleRecord');
+    const toggleRecord = () => store.dispatch('health/toggleRecord'); 
+    const table = {
+  isLoading: false,
+  columns: [
+    {
+      label: "ID",
+      field: "id",
+      width: "3%",
+      sortable: true,
+      isKey: true,
+    },
+    {
+      label: "Name",
+      field: "name",
+      width: "10%",
+      sortable: true,
+    },
+    {
+      label: "Email",
+      field: "email",
+      width: "15%",
+      sortable: true,
+    },
+  ],
+  rows: [],
+  totalRecordCount: 0,
+  sortable: {
+    order: "id",
+    sort: "asc",
+  },
+};
     return {
       open,
+      table,
       toggleRecord
     }
   },
@@ -84,6 +101,36 @@ export default {
       e.preventDefault();
       this.openProfile = !this.openProfile;
     },
+    doSearch: (offset, limit, order, sort) => {
+    this.table.isLoading = true;
+
+  // Start use axios to get data from Server
+  let url = 'https://www.example.com/api/some_endpoint?offset=' + offset + '&limit=' + limit + '&order=' + order + '&sort=' + sort;
+  fetch(url)
+  .then((response) => {
+    // Point: your response is like it on this example.
+    //   {
+    //   rows: [{
+    //     id: 1,
+    //     name: 'jack',
+    //     email: 'example@example.com'
+    //   },{
+    //     id: 2,
+    //     name: 'rose',
+    //     email: 'example@example.com'
+    //   }],
+    //   count: 2,
+    //   ...something
+    // }
+    
+    // refresh table rows
+    this.table.rows = response.rows;
+    this.table.totalRecordCount = response.count;
+    this.table.sortable.order = order;
+    this.table.sortable.sort = sort;
+  });
+  // End use axios to get data from Server
+}
 
     
   },
@@ -91,6 +138,7 @@ export default {
     Modal,
     PatientForm,
     ProfileForm,
+    TableLite
   },
 };
 </script>
@@ -129,7 +177,7 @@ hr {
   margin-left: 25%;
 }
 
-table,
+/* table,
 th,
 td {
   border: 2px solid #1424b3;
@@ -147,7 +195,7 @@ td {
 .tab table {
   margin-top: 50px;
   margin-left: 350px;
-}
+} */
 
 button {
   border-radius: 10px;

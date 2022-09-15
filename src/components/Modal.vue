@@ -35,10 +35,7 @@ export default {
 <style scoped>
 .modal {
   top:0;
-  position: fixed; 
-  /* padding-top:10px; */
-  /* z-index: 1; */
-  /* inset: 0; */
+  position: fixed;  
   background-color: rgb(0, 0, 0, 0.5);
   width: 100%;
   height: 100%;

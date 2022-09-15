@@ -18,7 +18,7 @@
     "serve-static": "^1.15.0",
     "vue": "^3.2.13",
     "vue-router": "^4.0.13",
-    "vue3-easy-data-table": "^1.4.17",
+    "vue3-table-lite": "^1.2.4",
     "vuex": "^4.0.2"
   },
   "devDependencies": {

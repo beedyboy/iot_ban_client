@@ -5,14 +5,18 @@ const state = {
   accessToken: null,
   addRecord: false,
   registering: false,
+  showOtpForm: false,
   saving: false,
   completed: "NO",
-  patients: []
+  patients: [],
+  patient: {}
 };
 const mutations = {
   // recordStatus: (state) => (state.addRecord = !state.addRecord),
   recordStatus: (state, value) => state.addRecord = !value,
+  toggleOtp: (state, value) => state.showOtpForm = !value,
   updateEmergency: (state, data) => state.patients = data,
+  updatePatient: (state, data) => state.patient = data,
   savingStatus: (state) => {
     const newState = state.saving;
     state.saving = !newState;
@@ -55,6 +59,13 @@ const actions = {
     },
   toggleRecord({ commit }) {
     commit("recordStatus", state.addRecord);
+  },
+  requestAccess({ commit }, patient) {
+    commit("updatePatient", patient); 
+    commit("toggleOtp", state.showOtpForm);
+  },
+  toggleOtp({ commit }, value) {
+    commit("toggleOtp", value);
   }
 
 };

@@ -7,7 +7,7 @@
 
     </div>
     <div class="text">
-      <h1>{{name}} | {{age}}</h1>
+      <h1>{{patient?.firstname + ' ' + patient?.lastname}} | {{patient?.age}}</h1>
       <p> Add Description Here...</p>
     </div>
     <button @click="handleOtp"> Attend To!</button>
@@ -27,14 +27,13 @@ export default {
   methods: {
     handleOtp() {
       this.$emit('toggle-otp-form', this.id)
-      console.log('you clicked me');
+      console.log('you clicked me', this.id);
     },
 
   },
   props: {
-    name: String,
-    id: Number,
-    age: String,
+    patient: Object, 
+    id: Number
   }
 
 
@@ -56,10 +55,11 @@ export default {
   justify-content: space-between;
   align-items: center;
   width: 300px;
-  box-shadow: 2px 2px 10px black;
+  /* box-shadow: 2px 2px 10px black; */
   border-radius: 15px;
   background-color: #E8ECF5;
   transition: transform 0.3s ease-in;
+  padding-bottom: 2px;
 }
 
 .image-item {
@@ -105,12 +105,13 @@ export default {
   margin-right: 70px;
 }
 
-button {
+.card-container button {
   /* display:flex; */
   align-items: center;
   /* margin-top: 220%; */
   background-color: #1424B3;
   border: 1px solid black;
+  color: #ffffff;
   border-radius: 10px;
   font-size: 16px;
   width: 90px;

@@ -1,56 +1,77 @@
 <template>
-  <div class="form-container">
-    <div class="header">
-      <h1>Enter token for {{ name }}</h1>
-    </div>
+<div class="otp-modal">
+  <div class="otp-container">
 
-    <div class="form">
-      <label> Enter your token </label>
-      <input type="text" name="token" />
+    <div class="otp-content">
+ <h1>Enter token for {{ patient?.firstname }}</h1>
+ <input type="text" name="token" />
+ <div class="otp-buttons">
+  <button type="button"  @click="closeOtp" style="background: #d35b09;">Cancel</button>
+  <button>Request Access</button>
+ </div>
+
     </div>
+  
   </div>
+</div>
 </template>
 
 <script>
 export default {
   name: "OtpForm", 
-
   props:{
-    name: String
+    patient: Object
+  },
+  methods: {
+    closeOtp() {
+      this.$emit('close-otp-form')
+      console.log('you closed me');
+    },
+
   },
 };
 </script>
 
-<style scoped>
-.form-container {
-  margin: auto;
+<style>
+  .otp-modal {
+  top:0;
+  position: fixed;  
+  background-color: rgb(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  overflow:auto;
+  
+  }
+
+.otp-container {
+  margin: 15% auto;
   background: #e8ecf5;
   width: 30%;
   height: 300px;
   box-shadow: 2px 2px 10px black;
-  border-radius: 15px;
-}
-
-.header {
-  text-align: center;
-  align-items: center;
-  /* border:5px solid red; */
-  height: 30px;
-}
-
-.form {
-  padding-top: 80px;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
+  border-radius: 15px;
+  z-index: 1;
+}
+.otp-content { 
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: 20px;
 }
-
-.form label {
-  font-size: 30px;
+.otp-buttons {
+  display: flex;
+  gap: 20px;
 }
-
-.form input {
+.otp-buttons button {
+    border-radius: 10px;
+   height: 35px;
+   font-size:15px;
+   background-color: #1424B3; 
+   color: #ffffff;
+}
+input {
   width: 50%;
   height: 30px;
   border-radius: 10px;

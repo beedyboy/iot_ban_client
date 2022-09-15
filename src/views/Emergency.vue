@@ -3,70 +3,66 @@
 <template>
   <div class="main-container">
     <!-- <h1>Patients' Alert</h1> -->
-    <div class="card-container">
       <div v-if="!patients || patients.length < 1">
         <h1>No Emergency at the moment!</h1>
       </div>
-      <div v-for="pat in patients" :key="pat.id">
-        <Card :name="pat.patient.firstname" :age="pat.patient.age" :id="pat.id" @toggle-otp-form="toggleOtpForm" />
-      </div>
+    <div class="records">
+        <Card v-for="pat in patients" :key="pat.id" :patient="pat.patient" :id="pat.id" @toggle-otp-form="toggleOtpForm" />
+    
     </div>
   </div>
 
-  <OtpForm v-show="showOtpForm" :id="id" :name="name" @otp-form="OtpForm"></OtpForm>
 
-
+  <otp-form v-if="showOtpForm" :patient="patient" @otp-form="OtpForm" @close-otp-form="closeForm"></otp-form>
+ 
   <Pagination />
 </template>
 
 <script>
-import { computed } from "vue";
-import { useStore } from "vuex";
+import { computed, defineAsyncComponent } from "vue";
+import { useStore } from "vuex"; 
 import Pagination from "../components/Pagination";
 import Card from "../components/Card";
-import OtpForm from "@/components/OtpForm.vue";
 
 export default {
+  name: "Emergency",
   setup() {
     const store = useStore();
     store.dispatch('health/fetchRecords');
+    const fetchRecords = () => store.dispatch('health/fetchRecords');
+    const requestAccess = (payload) => store.dispatch('health/requestAccess', payload);
+    const toggleOtp = (payload) => store.dispatch('health/toggleOtp', payload);
     const patients = computed(() => store.state.health.patients);
+    const patient = computed(() => store.state.health.patient);
+    const showOtpForm = computed(() => store.state.health.showOtpForm);
     return {
-      patients
+      patient,
+      patients,
+      showOtpForm,
+      fetchRecords,
+      requestAccess,
+      toggleOtp
     }
-  },
-  data() {
-    return {
-      showOtpForm: false,
-      id: 0,
-      name: ""
-    };
-  },
-  name: "Doctor",
+  }, 
   components: {
     Card,
     Pagination,
-    OtpForm,
+    OtpForm: defineAsyncComponent(() => 
+        import("@/components/OtpForm.vue")
+),
   },
   methods: {
     toggleOtpForm(id) {
-      this.showOtpForm = !this.showOtpForm;
-      if (this.showOtpForm) {
+      if (!this.showOtpForm) {
         const patient = this.patients.filter((x) => x.id === id);
-        // console.log({ patient })
-        this.id = patient[0].id;
-        this.name = patient[0].patient.firstname;
+        this.closeForm();
+        this.requestAccess(patient);
+        
       }
     },
-    // async fetchRecords() {
-    //   const res = await fetch("https://ban-iot.herokuapp.com/api/health/emergency", {
-    //     headers: {
-    //       'Authorization': `Bearer ${localStorage.getItem('token')}`
-    //     }
-    //   });
-    //   const data = await res.json();
-    //   this.patients = data.data;
-    // },
+    closeForm() {
+        this.toggleOtp(true);
+    }
   },
   async created() {
     // this.fetchRecords();
@@ -86,8 +82,9 @@ export default {
   /* height: 100%; */
 }
 
-.card-container {
+.records {
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
   gap: 20px;
   padding: 20px 0;
