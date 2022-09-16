@@ -40,7 +40,8 @@
       </form>
 
       <footer class="footer">
-        <h6>Don't have an account ? <a href="#"> Sign Up </a></h6>
+        <h6>Don't have an account ? 
+        <router-link to="/signup" class="signup">Sign Up</router-link></h6>
       </footer>
 
     </div>
