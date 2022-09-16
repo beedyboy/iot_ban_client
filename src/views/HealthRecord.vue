@@ -40,8 +40,7 @@ export default {
     const records = computed(() => store.state.health.healthRecord);
     const toggleRecord = () => store.dispatch('health/toggleRecord');
     const table = {
-      isLoading: false,
-  
+      isLoading: false, 
       columns: [
         {
           label: "Bp",
@@ -147,27 +146,7 @@ export default {
 hr {
   width: 35%;
   margin-left: 25%;
-}
-
-/* table,
-th,
-td {
-  border: 2px solid #1424b3;
-  border-collapse: collapse;
-}
-
-th,
-td {
-  padding-top: 10px;
-  padding-bottom: 20px;
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-.tab table {
-  margin-top: 50px;
-  margin-left: 350px;
-} */
+} 
 
 button {
   border-radius: 10px;

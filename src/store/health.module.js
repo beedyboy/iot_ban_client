@@ -9,6 +9,7 @@ const state = {
   saving: false,
   fetching: false,
   completed: "NO",
+  myRecords: [],
   patients: [],
   patient: {},
   healthRecord: [],
@@ -19,6 +20,7 @@ const mutations = {
   toggleOtp: (state, value) => (state.showOtpForm = !value),
   updateEmergency: (state, data) => (state.patients = data),
   updatehealthRecord: (state, data) => (state.healthRecord = data),
+  updateMyRecords: (state, data) => (state.myRecords = data),
   updatePatient: (state, data) => (state.patient = data),
   savingStatus: (state) => {
     const newState = state.saving;
@@ -59,6 +61,17 @@ const actions = {
     });
     const data = await res.json();
     commit("updateEmergency", data.data);
+  },
+
+  async fetchMyRecords({ commit }) {
+    const res = await fetch(`${BASE_URL}/health`, {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    const data = await res.json();
+    commit("updateMyRecords", data.data);
   },
 
   async fetchRecordsByPatient({ commit }, payload) {
