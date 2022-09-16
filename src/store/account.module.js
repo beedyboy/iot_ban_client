@@ -1,6 +1,6 @@
 
 import router from "../router";
-const BASE_URL = process.env.VUE_APP_BASE_URL_LOCAL;
+const BASE_URL = process.env.VUE_APP_BASE_URL_STAGING;
 const state = {
   accessToken: null,
   loggingIn: false,
