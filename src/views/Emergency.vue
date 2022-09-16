@@ -30,7 +30,7 @@ export default {
     const store = useStore();
     store.dispatch('health/fetchRecords');
     const fetchRecords = () => store.dispatch('health/fetchRecords');
-    const requestAccess = (payload) => store.dispatch('health/requestAccess', payload);
+    const attendTo = (payload) => store.dispatch('health/attendTo', payload);
     const toggleOtp = (payload) => store.dispatch('health/toggleOtp', payload);
     const patients = computed(() => store.state.health.patients);
     const patient = computed(() => store.state.health.patient);
@@ -40,7 +40,7 @@ export default {
       patients,
       showOtpForm,
       fetchRecords,
-      requestAccess,
+      attendTo,
       toggleOtp
     }
   }, 
@@ -56,7 +56,7 @@ export default {
       if (!this.showOtpForm) {
         const patient = this.patients.filter((x) => x.id === id);
         this.closeForm();
-        this.requestAccess(patient);
+        this.attendTo(patient[0]?.patient);
         
       }
     },
